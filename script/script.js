@@ -99,7 +99,7 @@ function testSpeech() {
   recognition.onerror = function(event) {
     testBtn.disabled = false;
     testBtn.textContent = '에러';
-    transcription.textContent = 'Error occurred in recognition: ' + event.error;
+    transcription.textContent = event.error;
   }
   
 
