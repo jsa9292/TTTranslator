@@ -43,6 +43,7 @@ function testSpeech() {
   var grammar = '#JSGF V1.0; grammar phrase; public <phrase> = ' + phrase +';';
   var speechRecognitionList = new SpeechGrammarList();
   speechRecognitionList.addFromString("치지직");
+  speechRecognitionList.addFromString("뚜야");
   speechRecognitionList.addFromString(grammar, 1);
 
   recognition = new SpeechRecognition();
