@@ -26,6 +26,7 @@ coll.addEventListener("click", function() {
         coll.innerHTML = "보이기";
     } else {
         content.style.display = "block";
+        coll.innerHTML = "숨기기";
     }
 });
 var transcription = document.querySelector('.transcription');
