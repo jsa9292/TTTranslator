@@ -44,6 +44,7 @@ var initialized = false;
 var slider1 = document.querySelector(".slider1");
 var slider2 = document.querySelector(".slider2");
 var slider3 = document.querySelector(".slider3");
+var slider4 = document.querySelector(".slider4");
 slider1.addEventListener('input', function() {
   console.log(this.value);
   document.documentElement.style.setProperty('--translation-font-size', this.value+'px');
@@ -56,6 +57,25 @@ slider3.addEventListener('input', function() {
   console.log(this.value);
   document.documentElement.style.setProperty('--translation-outline-thick', this.value+'px');
 }, false);
+slider4.addEventListener('input', function() {
+  console.log(this.value);
+  if(this.value == 0){
+      transcription.style.textAlign = "left";
+      translation1.style.textAlign = "left";
+      translation2.style.textAlign = "left";
+  }
+  else if(this.value == 1){
+      transcription.style.textAlign = "center";
+      translation1.style.textAlign = "center";
+      translation2.style.textAlign = "center";
+  }
+  else if(this.value == 2){
+      transcription.style.textAlign = "right";
+      translation1.style.textAlign = "right";
+      translation2.style.textAlign = "right";
+  }
+}, false);
+
 
 function testSpeech() {
   if (initialized) {
