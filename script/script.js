@@ -168,6 +168,9 @@ function testSpeech() {
       console.log('SpeechRecognition.onend');
       initialized = false;
       testBtn.textContent = '시작';
+      transcription.textContent = "";
+      translation1.textContent = "";
+      translation2.textContent = "";
       recognition.start();
   }
   
