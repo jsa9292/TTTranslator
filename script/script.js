@@ -17,6 +17,17 @@ var phrases = [
   'she sells seashells on the seashore'
 ];
 
+var coll = document.querySelector(".collapse");
+var content = document.querySelector(".options-wrapper");
+coll.addEventListener("click", function() {
+    this.classList.toggle("active");
+    if (content.style.display === "block") {
+        content.style.display = "none";
+        coll.innerHTML = "보이기";
+    } else {
+        content.style.display = "block";
+    }
+});
 var transcription = document.querySelector('.transcription');
 var translation1 = document.querySelector('.translation1');
 var translation2 = document.querySelector('.translation2');
@@ -30,6 +41,21 @@ function randomPhrase() {
 var recognition;
 var initialized = false;
 
+var slider1 = document.querySelector(".slider1");
+var slider2 = document.querySelector(".slider2");
+var slider3 = document.querySelector(".slider3");
+slider1.addEventListener('input', function() {
+  console.log(this.value);
+  document.documentElement.style.setProperty('--translation-font-size', this.value+'px');
+}, false);
+slider2.addEventListener('input', function() {
+  console.log(this.value);
+  document.documentElement.style.setProperty('--translation-font-weight', this.value);
+}, false);
+slider3.addEventListener('input', function() {
+  console.log(this.value);
+  document.documentElement.style.setProperty('--translation-outline-thick', this.value+'px');
+}, false);
 
 function testSpeech() {
   if (initialized) {

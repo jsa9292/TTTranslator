@@ -16,10 +16,10 @@
     <title>TTTranslator</title>
   </head>
   <body>
-    <h1> Two Target Translator v0.1</h1>
-    <h2> by Jupaks </h2>
     <div style="width: 100%">
-        <div class="card input-wrapper">
+        <div class="options-wrapper">
+            <h1 style="text-align:center"> Two Target Translator v0.1</h1>
+            <h2 style="text-align:center"> by Jupaks </h2>
             <div style="margin:50px;">
                 <div class="from">
                     <span class="heading">From :</span>
@@ -65,8 +65,22 @@
                 </div>
                 <br>
                 <button class = "listenButton" style="display:block;text-align:center; width: 100px; font-weight:700">시작</button>
+                <div class="slidecontainer" >
+                  <span class="heading">폰트 사이즈</span>
+                  <input type="range" min="5" max="50" value="25" class="slider1">
+                </div>
+                <div class="slidecontainer" id="fontweight">
+                  <span class="heading">폰트 굵기</span>
+                  <input type="range" min="100" max="900" value="600" class="slider2">
+                </div>
+                <div class="slidecontainer" id="outlinethick">
+                  <span class="heading">테두리 굵기</span>
+                  <input type="range" min="0" max="5" value="0" class="slider3">
+                </div>
             </div>
+            <br><br><br><br>
         </div>
+        <button class = "collapse">숨기기</button>
         <p class="transcription">기다리는 중.</p>
         <p class="translation1">Waiting.</p>
         <p class="translation2">等待。</p>
