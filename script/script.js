@@ -168,8 +168,11 @@ function testSpeech() {
       initialized = false;
       testBtn.textContent = '시작';
       transcription.textContent = "";
+        transcription.nextElementSibling.textContent = transcription.textContent;
       translation1.textContent = "";
+        translation1.nextElementSibling.textContent = translation1.textContent;
       translation2.textContent = "";
+        translation2.nextElementSibling.textContent = translation2.textContent;
       recognition.start();
   }
   
