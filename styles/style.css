@@ -111,7 +111,6 @@
   vertical-align: bottom;
   font-size: var(--translation-font-size);
   font-weight: var(--translation-font-weight);
-  overflow-y: hidden; 
   display: inline-block;
   align-self: flex-end;
   
