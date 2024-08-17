@@ -64,16 +64,25 @@ slider4.addEventListener('input', function() {
       transcription.style.textAlign = "left";
       translation1.style.textAlign = "left";
       translation2.style.textAlign = "left";
+      transcription.nextElementSibling.style.textAlign = "left";
+      translation1.nextElementSibling.style.textAlign = "left";
+      translation2.nextElementSibling.style.textAlign = "left";
   }
   else if(this.value == 1){
       transcription.style.textAlign = "center";
       translation1.style.textAlign = "center";
       translation2.style.textAlign = "center";
+      transcription.nextElementSibling.style.textAlign = "center";
+      translation1.nextElementSibling.style.textAlign = "center";
+      translation2.nextElementSibling.style.textAlign = "center";
   }
   else if(this.value == 2){
       transcription.style.textAlign = "right";
       translation1.style.textAlign = "right";
       translation2.style.textAlign = "right";
+      transcription.nextElementSibling.style.textAlign = "right";
+      translation1.nextElementSibling.style.textAlign = "right";
+      translation2.nextElementSibling.style.textAlign = "right";
   }
 }, false);
 

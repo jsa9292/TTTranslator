@@ -9,7 +9,7 @@
   --translation-outline-thick: 1px;
   --translation-font-size: 25px;
   --translation-font-weight: 600;
-  --transcription: '';
+  --translation-align: '';
 }
 
 ::-webkit-scrollbar {
@@ -130,6 +130,7 @@
     font-size: var(--translation-font-size);
     font-weight: var(--translation-font-weight);
     color: white;
+    text-align: left;
 }
 .translation1_after{
     position: absolute;
@@ -139,6 +140,7 @@
     font-size: var(--translation-font-size);
     font-weight: var(--translation-font-weight);
     color: white;
+    text-align: left;
 }
 .translation2_after{
     position: absolute;
@@ -148,6 +150,7 @@
     font-size: var(--translation-font-size);
     font-weight: var(--translation-font-weight);
     color: white;
+    text-align: left;
 }
 body {
   min-height: 100vh;
