@@ -9,7 +9,7 @@
   --translation-outline-thick: 1px;
   --translation-font-size: 25px;
   --translation-font-weight: 600;
-  --translation-align: '';
+  --translation-align: 'left';
 }
 
 ::-webkit-scrollbar {
@@ -107,7 +107,7 @@
   font-family: sans-serif;
   padding:3px;
   width: 100%;
-  text-align: left;
+  text-align: var(--translation-align);
   vertical-align: bottom;
   font-size: var(--translation-font-size);
   font-weight: var(--translation-font-weight);
@@ -129,7 +129,7 @@
     font-size: var(--translation-font-size);
     font-weight: var(--translation-font-weight);
     color: white;
-    text-align: left;
+    text-align: var(--translation-align);
 }
 .translation1_after{
     position: absolute;
@@ -139,7 +139,7 @@
     font-size: var(--translation-font-size);
     font-weight: var(--translation-font-weight);
     color: white;
-    text-align: left;
+    text-align: var(--translation-align);
 }
 .translation2_after{
     position: absolute;
@@ -149,7 +149,7 @@
     font-size: var(--translation-font-size);
     font-weight: var(--translation-font-weight);
     color: white;
-    text-align: left;
+    text-align: var(--translation-align);
 }
 body {
   min-height: 100vh;

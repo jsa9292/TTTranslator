@@ -61,28 +61,13 @@ slider3.addEventListener('input', function() {
 slider4.addEventListener('input', function() {
   console.log(this.value);
   if(this.value == 0){
-      transcription.style.textAlign = "left";
-      translation1.style.textAlign = "left";
-      translation2.style.textAlign = "left";
-      transcription.nextElementSibling.style.textAlign = "left";
-      translation1.nextElementSibling.style.textAlign = "left";
-      translation2.nextElementSibling.style.textAlign = "left";
+    document.documentElement.style.setProperty('--translation-align', 'left');
   }
   else if(this.value == 1){
-      transcription.style.textAlign = "center";
-      translation1.style.textAlign = "center";
-      translation2.style.textAlign = "center";
-      transcription.nextElementSibling.style.textAlign = "center";
-      translation1.nextElementSibling.style.textAlign = "center";
-      translation2.nextElementSibling.style.textAlign = "center";
+    document.documentElement.style.setProperty('--translation-align', 'center');
   }
   else if(this.value == 2){
-      transcription.style.textAlign = "right";
-      translation1.style.textAlign = "right";
-      translation2.style.textAlign = "right";
-      transcription.nextElementSibling.style.textAlign = "right";
-      translation1.nextElementSibling.style.textAlign = "right";
-      translation2.nextElementSibling.style.textAlign = "right";
+    document.documentElement.style.setProperty('--translation-align', 'right');
   }
 }, false);
 
