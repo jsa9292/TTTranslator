@@ -94,6 +94,15 @@
     );
 
 }
+.heading{
+    
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: #555;
+  top: -2px;
+  position: relative;
+}
 .transcription, .translation1, .translation2{
   font-family: sans-serif;
   padding:3px;
