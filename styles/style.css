@@ -9,6 +9,7 @@
   --translation-outline-thick: 1px;
   --translation-font-size: 25px;
   --translation-font-weight: 600;
+  --transcription: '';
 }
 
 ::-webkit-scrollbar {
@@ -94,29 +95,50 @@
 
 }
 .transcription, .translation1, .translation2{
-  margin:0px;
+  font-family: sans-serif;
+  padding:3px;
   width: 100%;
-  background-color: rgba(0, 255, 0);
   text-align: left;
   vertical-align: bottom;
   font-size: var(--translation-font-size);
-  -webkit-text-stroke-width: var(--translation-outline-thick);
-  -webkit-text-stroke-color: black;
-  color: var(--translation-color);
   font-weight: var(--translation-font-weight);
   overflow-y: hidden; 
   display: inline-block;
   align-self: flex-end;
+  
+  -webkit-text-stroke-width: var(--translation-outline-thick);
+  -webkit-text-fill-color: black;
+  -webkit-text-stroke-color: black;
+  position: relative;
+  color: var(--translation-color);
 
 }
-.transcription{
-  font-family:  Arial;
+.transcription_after{
+    position: absolute;
+    font-family: sans-serif;
+    width: 100%;
+    padding:3px;
+    font-size: var(--translation-font-size);
+    font-weight: var(--translation-font-weight);
+    color: white;
 }
-.translation1{
-  font-family: sans-serif;
+.translation1_after{
+    position: absolute;
+    font-family: sans-serif;
+    width: 100%;
+    padding:3px;
+    font-size: var(--translation-font-size);
+    font-weight: var(--translation-font-weight);
+    color: white;
 }
-.translation2{
-  font-family: sans-serif;
+.translation2_after{
+    position: absolute;
+    font-family: sans-serif;
+    width: 100%;
+    padding:3px;
+    font-size: var(--translation-font-size);
+    font-weight: var(--translation-font-weight);
+    color: white;
 }
 body {
   min-height: 100vh;

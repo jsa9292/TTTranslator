@@ -103,6 +103,8 @@ function testSpeech() {
 
   recognition.onresult = function(event) {
     transcription.textContent = event.results[event.results.length-1][0].transcript;
+    transcription.nextElementSibling.textContent = transcription.textContent;
+    document.documentElement.style.setProperty('--transcription', transcription.textContent);
     
     const inputText = transcription.textContent;
     const inputLanguage =
@@ -120,6 +122,7 @@ function testSpeech() {
     .then((response) => response.json())
     .then((json) => {
         translation1.textContent = json[0].map((item) => item[0]).join("");
+        translation1.nextElementSibling.textContent = translation1.textContent;
     })
     .catch((error) => {
         console.log(error);
@@ -133,6 +136,7 @@ function testSpeech() {
     .then((response) => response.json())
     .then((json) => {
         translation2.textContent = json[0].map((item) => item[0]).join("");
+        translation2.nextElementSibling.textContent = translation2.textContent;
         console.log(json)
     })
     .catch((error) => {
