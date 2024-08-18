@@ -69,25 +69,31 @@ var slider4 = document.querySelector(".slider4");
 slider1.addEventListener('input', function() {
   console.log(this.value);
   document.documentElement.style.setProperty('--translation-font-size', this.value+'px');
+  this.nextElementSibling.textContent = this.value;
 }, false);
 slider2.addEventListener('input', function() {
   console.log(this.value);
   document.documentElement.style.setProperty('--translation-font-weight', this.value);
+  this.nextElementSibling.textContent = this.value;
 }, false);
 slider3.addEventListener('input', function() {
   console.log(this.value);
   document.documentElement.style.setProperty('--translation-outline-thick', this.value+'px');
+  this.nextElementSibling.textContent = this.value;
 }, false);
 slider4.addEventListener('input', function() {
   console.log(this.value);
   if(this.value == 0){
     document.documentElement.style.setProperty('--translation-align', 'left');
+    this.nextElementSibling.textContent = 'left';
   }
   else if(this.value == 1){
     document.documentElement.style.setProperty('--translation-align', 'center');
+    this.nextElementSibling.textContent = 'center';
   }
   else if(this.value == 2){
     document.documentElement.style.setProperty('--translation-align', 'right');
+    this.nextElementSibling.textContent = 'right';
   }
 }, false);
 
