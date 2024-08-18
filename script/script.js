@@ -161,13 +161,13 @@ function testSpeech() {
         });
 
         
-        transcription_current_under.textContent = "";
+        transcription_current_under.textContent = "...";
         transcription_current_over.textContent = transcription_current_under.textContent;
 
-        translation1_current_under.textContent = "";
+        translation1_current_under.textContent = "...";
         translation1_current_over.textContent = translation1_current_under.textContent;
 
-        translation2_current_under.textContent = "";
+        translation2_current_under.textContent = "...";
         translation2_current_over.textContent = translation2_current_under.textContent;
 
     }
