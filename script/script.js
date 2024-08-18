@@ -6,17 +6,6 @@ var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-var phrases = [
-  'I love to sing because it\'s fun',
-  'where are you going',
-  'can I call you tomorrow',
-  'why did you talk while I was talking',
-  'she enjoys reading books and playing games',
-  'where are you going',
-  'have a great day',
-  'she sells seashells on the seashore'
-];
-
 var coll = document.querySelector(".collapse");
 var content = document.querySelector(".options-wrapper");
 coll.addEventListener("click", function() {
@@ -29,6 +18,7 @@ coll.addEventListener("click", function() {
         coll.innerHTML = "숨기기";
     }
 });
+
 var transcription = document.querySelector('.transcription');
 var transcription_current = transcription.querySelector('.current');
 var transcription_current_under = transcription_current.querySelector('.under');
@@ -54,10 +44,6 @@ var translation2_history_under = translation2_history.querySelector('.under');
 var translation2_history_over = translation2_history.querySelector('.over');
 
 var testBtn = document.querySelector('.listenButton');
-function randomPhrase() {
-  var number = Math.floor(Math.random() * phrases.length);
-  return number;
-}
 
 var recognition;
 var initialized = false;
@@ -97,6 +83,22 @@ slider4.addEventListener('input', function() {
   }
 }, false);
 
+
+var phrases = [
+  'I love to sing because it\'s fun',
+  'where are you going',
+  'can I call you tomorrow',
+  'why did you talk while I was talking',
+  'she enjoys reading books and playing games',
+  'where are you going',
+  'have a great day',
+  'she sells seashells on the seashore'
+];
+
+function randomPhrase() {
+  var number = Math.floor(Math.random() * phrases.length);
+  return number;
+}
 
 function testSpeech() {
   if (initialized) {
@@ -167,13 +169,13 @@ function testSpeech() {
         });
 
         
-        transcription_current_under.textContent = "...";
+        transcription_current_under.textContent = "";
         transcription_current_over.textContent = transcription_current_under.textContent;
 
-        translation1_current_under.textContent = "...";
+        translation1_current_under.textContent = "";
         translation1_current_over.textContent = translation1_current_under.textContent;
 
-        translation2_current_under.textContent = "...";
+        translation2_current_under.textContent = "";
         translation2_current_over.textContent = translation2_current_under.textContent;
 
     }

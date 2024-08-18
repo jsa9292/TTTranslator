@@ -130,7 +130,7 @@
   vertical-align: bottom;
   font-size: var(--translation-font-size);
   font-weight: var(--translation-font-weight);
-  display: inline-block;
+  display: block;
   align-self: flex-end;
   
   -webkit-text-stroke-width: var(--translation-outline-thick);
@@ -142,6 +142,7 @@
 }
 .over{
     position: absolute;
+    display: block;
     font-family: sans-serif;
     width: 100%;
     padding:3px;
