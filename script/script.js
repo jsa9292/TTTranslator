@@ -2,12 +2,13 @@
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
 //Translation
 //https://github.com/Venkateeshh/Js-Language-Translator
+
 var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
 var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
 var SpeechRecognitionEvent = SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
 
-var coll = document.querySelector(".collapse");
 var content = document.querySelector(".options-wrapper");
+var coll = document.querySelector(".collapse");
 coll.addEventListener("click", function() {
     this.classList.toggle("active");
     if (content.style.display === "block") {
@@ -23,52 +24,61 @@ var transcription = document.querySelector('.transcription');
 var transcription_current = transcription.querySelector('.current');
 var transcription_current_under = transcription_current.querySelector('.under');
 var transcription_current_over = transcription_current.querySelector('.over');
-var transcription_history = transcription.querySelector('.history');
-var transcription_history_under = transcription_history.querySelector('.under');
-var transcription_history_over = transcription_history.querySelector('.over');
 
 var translation1 = document.querySelector('.translation1');
 var translation1_current = translation1.querySelector('.current');
 var translation1_current_under = translation1_current.querySelector('.under');
 var translation1_current_over = translation1_current.querySelector('.over');
-var translation1_history = translation1.querySelector('.history');
-var translation1_history_under = translation1_history.querySelector('.under');
-var translation1_history_over = translation1_history.querySelector('.over');
 
 var translation2 = document.querySelector('.translation2');
 var translation2_current = translation2.querySelector('.current');
 var translation2_current_under = translation2_current.querySelector('.under');
 var translation2_current_over = translation2_current.querySelector('.over');
-var translation2_history = translation2.querySelector('.history');
-var translation2_history_under = translation2_history.querySelector('.under');
-var translation2_history_over = translation2_history.querySelector('.over');
 
 var testBtn = document.querySelector('.listenButton');
 
 var recognition;
 var initialized = false;
 
-var slider1 = document.querySelector(".slider1");
-var slider2 = document.querySelector(".slider2");
-var slider3 = document.querySelector(".slider3");
-var slider4 = document.querySelector(".slider4");
+var slider1 = document.querySelector("#slider1");
+var slider2 = document.querySelector("#slider2");
+var slider3 = document.querySelector("#slider3");
+var slider4 = document.querySelector("#slider4");
+
+if (localStorage.getItem(slider1.id)) {
+    slider1.value = localStorage.getItem(slider1.id);
+    slider1.nextElementSibling.textContent = slider1.value;
+}
+if (localStorage.getItem(slider2.id)) {
+    slider2.value = localStorage.getItem(slider2.id);
+    slider2.nextElementSibling.textContent = slider2.value;
+}
+if (localStorage.getItem(slider3.id)) {
+    slider3.value = localStorage.getItem(slider3.id);
+    slider3.nextElementSibling.textContent = slider3.value;
+}
+if (localStorage.getItem(slider4.id)) {
+    slider4.value = localStorage.getItem(slider4.id);
+    slider4.nextElementSibling.textContent = slider4.value;
+}
+
 slider1.addEventListener('input', function() {
-  console.log(this.value);
   document.documentElement.style.setProperty('--translation-font-size', this.value+'px');
   this.nextElementSibling.textContent = this.value;
+  localStorage.setItem(this.id, this.value);
 }, false);
 slider2.addEventListener('input', function() {
-  console.log(this.value);
   document.documentElement.style.setProperty('--translation-font-weight', this.value);
   this.nextElementSibling.textContent = this.value;
+  localStorage.setItem(this.id, this.value);
 }, false);
 slider3.addEventListener('input', function() {
-  console.log(this.value);
   document.documentElement.style.setProperty('--translation-outline-thick', this.value+'px');
   this.nextElementSibling.textContent = this.value;
+  localStorage.setItem(this.id, this.value);
 }, false);
 slider4.addEventListener('input', function() {
-  console.log(this.value);
+  localStorage.setItem(this.id, this.value);
   if(this.value == 0){
     document.documentElement.style.setProperty('--translation-align', 'left');
     this.nextElementSibling.textContent = 'left';
@@ -82,6 +92,11 @@ slider4.addEventListener('input', function() {
     this.nextElementSibling.textContent = 'right';
   }
 }, false);
+
+slider1.dispatchEvent(new Event('input'));
+slider2.dispatchEvent(new Event('input'));
+slider3.dispatchEvent(new Event('input'));
+slider4.dispatchEvent(new Event('input'));
 
 
 var phrases = [
@@ -100,6 +115,11 @@ function randomPhrase() {
   return number;
 }
 
+function outlineHelper(element, text){
+    element.textContent = text;
+    element.nextElementSibling.textContent = text;
+  
+}
 function testSpeech() {
   if (initialized) {
       recognition.abort();
@@ -134,55 +154,14 @@ function testSpeech() {
     
 
     var result = event.results[event.results.length-1];
-    console.log(result);
-    if(result.isFinal){
-        transcription_history_under.textContent = result[0].transcript;
-        transcription_history_over.textContent = transcription_history_under.textContent;
+    console.log(event);
+    outlineHelper(transcription_current_under, result[0].transcript);
         
-        const inputText = transcription_history_under.textContent;
-        const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
-        inputText,
-        )}`;
-        const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
-        inputText,
-        )}`;
-
-        fetch(url1)
-        .then((response) => response.json())
-        .then((json) => {
-            translation1_history_under.textContent = json[0].map((item) => item[0]).join("");
-            translation1_history_over.textContent = translation1_history_under.textContent;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
     
-
-        fetch(url2)
-        .then((response) => response.json())
-        .then((json) => {
-            translation2_history_under.textContent = json[0].map((item) => item[0]).join("");
-            translation2_history_over.textContent = translation2_history_under.textContent;
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-
-        
-        transcription_current_under.textContent = "";
-        transcription_current_over.textContent = transcription_current_under.textContent;
-
-        translation1_current_under.textContent = "";
-        translation1_current_over.textContent = translation1_current_under.textContent;
-
-        translation2_current_under.textContent = "";
-        translation2_current_over.textContent = translation2_current_under.textContent;
-
-    }
-    else{
-        transcription_current_under.textContent = result[0].transcript;
-        transcription_current_over.textContent = transcription_current_under.textContent;
-        
+    
+    
+    if(result.isFinal){
+        transcription.insertBefore(transcription_current.cloneNode(true),transcription_current);
         const inputText = transcription_current_over.textContent;
         const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
         inputText,
@@ -190,27 +169,37 @@ function testSpeech() {
         const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
         inputText,
         )}`;
-
+        
         fetch(url1)
         .then((response) => response.json())
         .then((json) => {
-            translation1_current_under.textContent = json[0].map((item) => item[0]).join("");
-            translation1_current_over.textContent = translation1_current_under.textContent;
+            outlineHelper(translation1_current_under, json[0].map((item) => item[0]).join(""));
+            translation1.insertBefore(translation1_current.cloneNode(true),translation1_current);
+            outlineHelper(translation1_current_under, "");
         })
         .catch((error) => {
             console.log(error);
         });
-    
+        
 
         fetch(url2)
         .then((response) => response.json())
         .then((json) => {
-            translation2_current_under.textContent = json[0].map((item) => item[0]).join("");
-            translation2_current_over.textContent = translation2_current_under.textContent;
+            outlineHelper(translation2_current_under, json[0].map((item) => item[0]).join(""));
+            translation2.insertBefore(translation2_current.cloneNode(true),translation2_current);
+            outlineHelper(translation2_current_under, "");
         })
         .catch((error) => {
             console.log(error);
         });
+        
+        
+        outlineHelper(transcription_current_under, "");
+        if(transcription.childElementCount >10){
+            transcription.firstElementChild.remove();
+            translation1.firstElementChild.remove();
+            translation2.firstElementChild.remove();
+        }
     }
   }
 
@@ -221,8 +210,8 @@ function testSpeech() {
   recognition.onerror = function(event) {
     testBtn.disabled = false;
     testBtn.textContent = '에러';
-    transcription_current_under.textContent = event.error;
-    transcription_current_over.textContent = event.error;
+    transcription_current_under.textContent = event.message;
+    transcription_current_over.textContent = event.message;
   }
   
 
@@ -245,23 +234,9 @@ function testSpeech() {
       initialized = false;
       testBtn.textContent = '시작';
       
-      transcription_current_under.textContent = "";
-      transcription_current_over.textContent = transcription_current_under.textContent;
-
-      translation1_current_under.textContent = "";
-      translation1_current_over.textContent = translation1_current_under.textContent;
-
-      translation2_current_under.textContent = "";
-      translation2_current_over.textContent = translation2_current_under.textContent;
-
-      transcription_history_under.textContent = "";
-      transcription_history_over.textContent = transcription_history_under.textContent;
-
-      translation1_history_under.textContent = "";
-      translation1_history_over.textContent = translation1_history_under.textContent;
-
-      translation2_history_under.textContent = "";
-      translation2_history_over.textContent = translation2_history_under.textContent;
+      outlineHelper(transcription_current_under, "");
+      outlineHelper(translation1_current_under, "");
+      outlineHelper(translation2_current_under, "");
 
       recognition.start();
   }

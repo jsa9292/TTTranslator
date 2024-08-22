@@ -100,15 +100,19 @@
   top: -2px;
   position: relative;
 }
+.greenScreen{
+    height: calc(100vh - 30px);
+    width: 100%;
+}
 .transcription, .translation1, .translation2{
     width:100%; 
-    height: 30vh; 
+    height: 33%; 
     display:flex; 
     flex-direction:column; 
     justify-content: flex-end;
     -webkit-mask-image: -webkit-gradient(
         linear,
-        left 50%,
+        left 20%,
         left top,
         from(rgba(0,0,0,1)),
         to(rgba(0,0,0,0))
