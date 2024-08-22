@@ -310,7 +310,7 @@ dropdowns.forEach((dropdown) => {
       const selected = dropdown.querySelector(".selected");
       selected.innerHTML = item.innerHTML;
       selected.dataset.value = item.dataset.value;
-      console.log(selected.dataset.value);
+      localStorage.setItem(dropdown.id,selected.dataset.value);
     });
   });
 });
@@ -322,5 +322,23 @@ document.addEventListener("click", (e) => {
   });
 });
 
-const inputLanguage = inputLanguageDropdown.querySelector(".selected"),
-  outputLanguage = outputLanguageDropdown.querySelector(".selected");
+var inputSaved = localStorage.getItem("input-language");
+console.log("[data-value=\"" +inputSaved + "\"]");
+if(inputSaved){
+    inputLanguageDropdown.querySelector("[data-value=\"" +inputSaved + "\"]")
+    .dispatchEvent(new Event('click'));
+}
+
+var outputSaved = localStorage.getItem("output-language");
+console.log("[data-value=\"" +outputSaved + "\"]");
+if(outputSaved){
+    outputLanguageDropdown.querySelector("[data-value=\"" +outputSaved + "\"]")
+    .dispatchEvent(new Event('click'));
+}
+
+var outputSaved2 = localStorage.getItem("output-language2");
+console.log("[data-value=\"" +outputSaved2 + "\"]");
+if(outputSaved2){
+    outputLanguageDropdown2.querySelector("[data-value=\"" +outputSaved2 + "\"]")
+    .dispatchEvent(new Event('click'));
+}
