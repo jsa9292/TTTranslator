@@ -36,6 +36,7 @@ var translation2_current_under = translation2_current.querySelector('.under');
 var translation2_current_over = translation2_current.querySelector('.over');
 
 var testBtn = document.querySelector('.listenButton');
+var greenScreen = document.querySelector('.greenScreen');
 
 var recognition;
 var initialized = false;
@@ -249,11 +250,17 @@ function testSpeech() {
   recognition.onsoundstart = function(event) {
       //Fired when any sound — recognisable speech or not — has been detected.
       console.log('SpeechRecognition.onsoundstart');
+      
+      greenScreen.classList.remove("fade-out-box");
+      greenScreen.classList.add("fade-in-box");
   }
   
   recognition.onsoundend = function(event) {
       //Fired when any sound — recognisable speech or not — has stopped being detected.
       console.log('SpeechRecognition.onsoundend');
+      
+      greenScreen.classList.remove("fade-in-box");
+      greenScreen.classList.add("fade-out-box");
   }
   
   recognition.onspeechstart = function (event) {
