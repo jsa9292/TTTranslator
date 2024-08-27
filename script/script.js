@@ -1,4 +1,90 @@
-﻿//Transcription
+﻿
+
+const dropdowns = document.querySelectorAll(".dropdown-container"),
+  inputLanguageDropdown = document.querySelector("#input-language"),
+  outputLanguageDropdown = document.querySelector("#output-language"),
+  outputLanguageDropdown2 = document.querySelector("#output-language2");
+
+
+var inputLanguage =
+inputLanguageDropdown.querySelector(".selected").dataset.value;
+var outputLanguage =
+outputLanguageDropdown.querySelector(".selected").dataset.value;
+var outputLanguage2 =
+outputLanguageDropdown2.querySelector(".selected").dataset.value;
+
+function populateDropdown(dropdown, options) {
+  dropdown.querySelector("ul").innerHTML = "";
+  options.forEach((option) => {
+    const li = document.createElement("li");
+    const title = option.name + " (" + option.native + ")";
+    li.innerHTML = title;
+    li.dataset.value = option.code;
+    li.classList.add("option");
+    dropdown.querySelector("ul").appendChild(li);
+  });
+}
+
+populateDropdown(inputLanguageDropdown, languages);
+populateDropdown(outputLanguageDropdown, languages);
+populateDropdown(outputLanguageDropdown2, languages);
+
+dropdowns.forEach((dropdown) => {
+  dropdown.addEventListener("click", (e) => {
+    dropdown.classList.toggle("active");
+  });
+
+  dropdown.querySelectorAll(".option").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      //remove active class from current dropdowns
+      dropdown.querySelectorAll(".option").forEach((item) => {
+        item.classList.remove("active");
+      });
+      item.classList.add("active");
+      const selected = dropdown.querySelector(".selected");
+      selected.innerHTML = item.innerHTML;
+      selected.dataset.value = item.dataset.value;
+      localStorage.setItem(dropdown.id,selected.dataset.value);
+    });
+  });
+});
+document.addEventListener("click", (e) => {
+  dropdowns.forEach((dropdown) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("active");
+    }
+  });
+});
+
+var inputSaved = localStorage.getItem("input-language");
+console.log("[data-value=\"" +inputSaved + "\"]");
+if(inputSaved){
+    inputLanguageDropdown.querySelector("[data-value=\"" +inputSaved + "\"]")
+    .dispatchEvent(new Event('click'));
+}
+
+var outputSaved = localStorage.getItem("output-language");
+console.log("[data-value=\"" +outputSaved + "\"]");
+if(outputSaved){
+    outputLanguageDropdown.querySelector("[data-value=\"" +outputSaved + "\"]")
+    .dispatchEvent(new Event('click'));
+}
+
+var outputSaved2 = localStorage.getItem("output-language2");
+console.log("[data-value=\"" +outputSaved2 + "\"]");
+if(outputSaved2){
+    outputLanguageDropdown2.querySelector("[data-value=\"" +outputSaved2 + "\"]")
+    .dispatchEvent(new Event('click'));
+}
+
+
+
+
+
+
+
+
+//Transcription
 //https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
 //Translation
 //https://github.com/Venkateeshh/Js-Language-Translator
@@ -35,7 +121,7 @@ var translation2_current = translation2.querySelector('.current');
 var translation2_current_under = translation2_current.querySelector('.under');
 var translation2_current_over = translation2_current.querySelector('.over');
 
-var testBtn = document.querySelector('.listenButton');
+var startBtn = document.querySelector('.listenButton');
 var greenScreen = document.querySelector('.greenScreen');
 
 var recognition;
@@ -121,7 +207,7 @@ function outlineHelper(element, text){
     element.nextElementSibling.textContent = text;
   
 }
-function testSpeech() {
+function startListening() {
   if (initialized) {
       recognition.abort();
       return;
@@ -140,67 +226,56 @@ function testSpeech() {
   recognition.grammars = speechRecognitionList;
   recognition.lang = 'ko-KR';
   recognition.interimResults = true;
-  recognition.maxAlternatives = 1;
-  recognition.continuous = true;
+  recognition.maxAlternatives = 10;
+  recognition.continuous = false;
   recognition.start();
 
   recognition.onresult = function(event) {
-      
-    const inputLanguage =
-    inputLanguageDropdown.querySelector(".selected").dataset.value;
-    const outputLanguage =
-    outputLanguageDropdown.querySelector(".selected").dataset.value;
-    const outputLanguage2 =
-    outputLanguageDropdown2.querySelector(".selected").dataset.value;
-    
-
     var result = event.results[event.results.length-1];
-    console.log(event);
     outlineHelper(transcription_current_under, result[0].transcript);
+    const inputText = transcription_current_over.textContent;
+    console.log(result);
+    const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
+    inputText,
+    )}`;
+    const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
+    inputText,
+    )}`;
+    
+    fetch(url1)
+    .then((response) => response.json())
+    .then((json) => {
+        outlineHelper(translation1_current_under, json[0].map((item) => item[0]).join(""));
+    })
+    .catch((error) => {
+        console.log(error);
+    });
         
-    
-    
+
+    fetch(url2)
+    .then((response) => response.json())
+    .then((json) => {
+        outlineHelper(translation2_current_under, json[0].map((item) => item[0]).join(""));
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+        
     
     if(result.isFinal){
         transcription.insertBefore(transcription_current.cloneNode(true),transcription_current);
-        const inputText = transcription_current_over.textContent;
-        const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
-        inputText,
-        )}`;
-        const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
-        inputText,
-        )}`;
-        
-        fetch(url1)
-        .then((response) => response.json())
-        .then((json) => {
-            outlineHelper(translation1_current_under, json[0].map((item) => item[0]).join(""));
-            translation1.insertBefore(translation1_current.cloneNode(true),translation1_current);
-            outlineHelper(translation1_current_under, "");
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-        
+        translation1.insertBefore(translation1_current.cloneNode(true),translation1_current);
+        translation2.insertBefore(translation2_current.cloneNode(true),translation2_current);
 
-        fetch(url2)
-        .then((response) => response.json())
-        .then((json) => {
-            outlineHelper(translation2_current_under, json[0].map((item) => item[0]).join(""));
-            translation2.insertBefore(translation2_current.cloneNode(true),translation2_current);
-            outlineHelper(translation2_current_under, "");
-        })
-        .catch((error) => {
-            console.log(error);
-        });
-        
-        
-        outlineHelper(transcription_current_under, "");
         if(transcription.childElementCount >10){
             transcription.firstElementChild.remove();
             translation1.firstElementChild.remove();
             translation2.firstElementChild.remove();
         }
+
+        outlineHelper(transcription_current_under, "");
+        outlineHelper(translation1_current_under, "");
+        outlineHelper(translation2_current_under, "");
     }
   }
 
@@ -209,8 +284,9 @@ function testSpeech() {
   }
 
   recognition.onerror = function(event) {
-    testBtn.disabled = false;
-    testBtn.textContent = '에러';
+    startBtn.disabled = false;
+    startBtn.textContent = '에러';
+    console.log(event);
     transcription_current_under.textContent = event.message;
     transcription_current_over.textContent = event.message;
   }
@@ -233,12 +309,7 @@ function testSpeech() {
       //Fired when the speech recognition service has disconnected.
       console.log('SpeechRecognition.onend');
       initialized = false;
-      testBtn.textContent = '시작';
-      
-      outlineHelper(transcription_current_under, "");
-      outlineHelper(translation1_current_under, "");
-      outlineHelper(translation2_current_under, "");
-
+      startBtn.textContent = '시작';
       recognition.start();
   }
   
@@ -266,86 +337,17 @@ function testSpeech() {
   recognition.onspeechstart = function (event) {
       //Fired when sound that is recognised by the speech recognition service as speech has been detected.
       console.log('SpeechRecognition.onspeechstart');
+      inputLanguage = inputLanguageDropdown.querySelector(".selected").dataset.value;
+      outputLanguage = outputLanguageDropdown.querySelector(".selected").dataset.value;
+      outputLanguage2 = outputLanguageDropdown2.querySelector(".selected").dataset.value;
   }
   recognition.onstart = function(event) {
       //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
       console.log('SpeechRecognition.onstart');
       initialized = true;
-      testBtn.textContent = '정지';
+      startBtn.textContent = '정지';
   }
 }
 
-testBtn.addEventListener('click', testSpeech);
+startBtn.addEventListener('click', startListening);
 
-
-
-
-
-const dropdowns = document.querySelectorAll(".dropdown-container"),
-  inputLanguageDropdown = document.querySelector("#input-language"),
-  outputLanguageDropdown = document.querySelector("#output-language"),
-  outputLanguageDropdown2 = document.querySelector("#output-language2");
-
-function populateDropdown(dropdown, options) {
-  dropdown.querySelector("ul").innerHTML = "";
-  options.forEach((option) => {
-    const li = document.createElement("li");
-    const title = option.name + " (" + option.native + ")";
-    li.innerHTML = title;
-    li.dataset.value = option.code;
-    li.classList.add("option");
-    dropdown.querySelector("ul").appendChild(li);
-  });
-}
-
-populateDropdown(inputLanguageDropdown, languages);
-populateDropdown(outputLanguageDropdown, languages);
-populateDropdown(outputLanguageDropdown2, languages);
-
-dropdowns.forEach((dropdown) => {
-  dropdown.addEventListener("click", (e) => {
-    dropdown.classList.toggle("active");
-  });
-
-  dropdown.querySelectorAll(".option").forEach((item) => {
-    item.addEventListener("click", (e) => {
-      //remove active class from current dropdowns
-      dropdown.querySelectorAll(".option").forEach((item) => {
-        item.classList.remove("active");
-      });
-      item.classList.add("active");
-      const selected = dropdown.querySelector(".selected");
-      selected.innerHTML = item.innerHTML;
-      selected.dataset.value = item.dataset.value;
-      localStorage.setItem(dropdown.id,selected.dataset.value);
-    });
-  });
-});
-document.addEventListener("click", (e) => {
-  dropdowns.forEach((dropdown) => {
-    if (!dropdown.contains(e.target)) {
-      dropdown.classList.remove("active");
-    }
-  });
-});
-
-var inputSaved = localStorage.getItem("input-language");
-console.log("[data-value=\"" +inputSaved + "\"]");
-if(inputSaved){
-    inputLanguageDropdown.querySelector("[data-value=\"" +inputSaved + "\"]")
-    .dispatchEvent(new Event('click'));
-}
-
-var outputSaved = localStorage.getItem("output-language");
-console.log("[data-value=\"" +outputSaved + "\"]");
-if(outputSaved){
-    outputLanguageDropdown.querySelector("[data-value=\"" +outputSaved + "\"]")
-    .dispatchEvent(new Event('click'));
-}
-
-var outputSaved2 = localStorage.getItem("output-language2");
-console.log("[data-value=\"" +outputSaved2 + "\"]");
-if(outputSaved2){
-    outputLanguageDropdown2.querySelector("[data-value=\"" +outputSaved2 + "\"]")
-    .dispatchEvent(new Event('click'));
-}
