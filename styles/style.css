@@ -10,6 +10,7 @@
   --translation-font-size: 25px;
   --translation-font-weight: 600;
   --translation-align: 'left';
+  --history-fade-time: 5s;
 }
 
 ::-webkit-scrollbar {
@@ -106,6 +107,19 @@
     to {
         opacity:1;
     }
+}
+.fade-out-5s {
+  animation: fadeouthistory var(--history-fade-time);
+  -moz-animation: fadeouthistory var(--history-fade-time); /* Firefox */
+  -webkit-animation: fadeouthistory var(--history-fade-time); /* Safari and Chrome */
+  -o-animation: fadeouthistory var(--history-fade-time); /* Opera */
+  animation-fill-mode: forwards;
+}
+@keyframes fadeouthistory {
+    0% { opacity: 1;}
+    90% {opacity: 1;}
+    100% {opacity: 0;}
+
 }
 .slidecontainer{
     font-family: sans-serif;

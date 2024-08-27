@@ -131,39 +131,45 @@ var slider1 = document.querySelector("#slider1");
 var slider2 = document.querySelector("#slider2");
 var slider3 = document.querySelector("#slider3");
 var slider4 = document.querySelector("#slider4");
+var slider5 = document.querySelector("#slider5");
 
 if (localStorage.getItem(slider1.id)) {
     slider1.value = localStorage.getItem(slider1.id);
-    slider1.nextElementSibling.textContent = slider1.value;
 }
 if (localStorage.getItem(slider2.id)) {
     slider2.value = localStorage.getItem(slider2.id);
-    slider2.nextElementSibling.textContent = slider2.value;
 }
 if (localStorage.getItem(slider3.id)) {
     slider3.value = localStorage.getItem(slider3.id);
-    slider3.nextElementSibling.textContent = slider3.value;
 }
 if (localStorage.getItem(slider4.id)) {
     slider4.value = localStorage.getItem(slider4.id);
-    slider4.nextElementSibling.textContent = slider4.value;
+}
+if (localStorage.getItem(slider5.id)) {
+    slider5.value = localStorage.getItem(slider5.id);
 }
 
 slider1.addEventListener('input', function() {
   document.documentElement.style.setProperty('--translation-font-size', this.value+'px');
-  this.nextElementSibling.textContent = this.value;
+  this.nextElementSibling.textContent = this.value + 'px';
   localStorage.setItem(this.id, this.value);
 }, false);
+slider1.dispatchEvent(new Event('input'));
+
 slider2.addEventListener('input', function() {
   document.documentElement.style.setProperty('--translation-font-weight', this.value);
   this.nextElementSibling.textContent = this.value;
   localStorage.setItem(this.id, this.value);
 }, false);
+slider2.dispatchEvent(new Event('input'));
+
 slider3.addEventListener('input', function() {
   document.documentElement.style.setProperty('--translation-outline-thick', this.value+'px');
-  this.nextElementSibling.textContent = this.value;
+  this.nextElementSibling.textContent = this.value + 'px';
   localStorage.setItem(this.id, this.value);
 }, false);
+slider3.dispatchEvent(new Event('input'));
+
 slider4.addEventListener('input', function() {
   localStorage.setItem(this.id, this.value);
   if(this.value == 0){
@@ -179,11 +185,15 @@ slider4.addEventListener('input', function() {
     this.nextElementSibling.textContent = 'right';
   }
 }, false);
-
-slider1.dispatchEvent(new Event('input'));
-slider2.dispatchEvent(new Event('input'));
-slider3.dispatchEvent(new Event('input'));
 slider4.dispatchEvent(new Event('input'));
+
+slider5.addEventListener('input', function() {
+  document.documentElement.style.setProperty('--history-fade-time', this.value + 's');
+  this.nextElementSibling.textContent = this.value + 's';
+  localStorage.setItem(this.id, this.value);
+}, false);
+slider5.dispatchEvent(new Event('input'));
+
 
 
 var phrases = [
@@ -207,7 +217,6 @@ function outlineHelper(element, text){
     element.nextElementSibling.textContent = text;
   
 }
-
 function startListening() {
   if (initialized) {
       recognition.abort();
@@ -263,7 +272,12 @@ function startListening() {
     //transcription
     outlineHelper(transcription_current_under, inputText);
     if(isFinal){
-        transcription.insertBefore(transcription_current.cloneNode(true),transcription_current);
+        var newLine = transcription_current.cloneNode(true);    
+        transcription.insertBefore(newLine,transcription_current);
+        newLine.classList.add("fade-out-5s");
+        newLine.onanimationend = () => {
+            newLine.remove();
+        };
         outlineHelper(transcription_current_under, "");
     }
 
@@ -276,7 +290,12 @@ function startListening() {
     .then((json) => {
         outlineHelper(translation1_current_under, json[0].map((item) => item[0]).join(""));
         if(isFinal){
-            translation1.insertBefore(translation1_current.cloneNode(true),translation1_current);
+            var newLine = translation1_current.cloneNode(true);
+            translation1.insertBefore(newLine,translation1_current);
+            newLine.classList.add("fade-out-5s");
+            newLine.onanimationend = () => {
+                newLine.remove();
+            };
             outlineHelper(translation1_current_under, "");
         }
     })
@@ -293,21 +312,18 @@ function startListening() {
     .then((json) => {
         outlineHelper(translation2_current_under, json[0].map((item) => item[0]).join(""));
         if(isFinal){
-            translation2.insertBefore(translation2_current.cloneNode(true),translation2_current);
+            var newLine = translation2_current.cloneNode(true);
+            translation2.insertBefore(newLine,translation2_current);
+            newLine.classList.add("fade-out-5s");
+            newLine.onanimationend = () => {
+                newLine.remove();
+            };
             outlineHelper(translation2_current_under, "");
         }
     })
     .catch((error) => {
         console.log(error);
     });
-        
-    
-    //remove if too much lines
-    if(transcription.childElementCount >10){
-            transcription.firstElementChild.remove();
-            translation1.firstElementChild.remove();
-            translation2.firstElementChild.remove();
-    }
   }
 
   recognition.onspeechend = function() {
@@ -340,6 +356,7 @@ function startListening() {
       //Fired when the speech recognition service has disconnected.
       console.log('SpeechRecognition.onend');
       spokenWords = interimWords = "";
+      talkCount = 0;
       initialized = false;
       startBtn.textContent = '시작';
       recognition.start();
