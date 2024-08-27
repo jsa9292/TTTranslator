@@ -207,6 +207,7 @@ function outlineHelper(element, text){
     element.nextElementSibling.textContent = text;
   
 }
+
 function startListening() {
   if (initialized) {
       recognition.abort();
@@ -227,55 +228,85 @@ function startListening() {
   recognition.lang = 'ko-KR';
   recognition.interimResults = true;
   recognition.maxAlternatives = 10;
-  recognition.continuous = false;
+  recognition.continuous = true;
   recognition.start();
 
+  var spokenWords;
+  var interimWords;
+  var inputText;
+  var talkCount = 0;
+  var isFinal;
   recognition.onresult = function(event) {
-    var result = event.results[event.results.length-1];
-    outlineHelper(transcription_current_under, result[0].transcript);
-    const inputText = transcription_current_over.textContent;
-    console.log(result);
+    //recognition work
+    var results = event.results;
+    var numberOfResults = results.length;
+    console.log(numberOfResults);
+    if (0 != numberOfResults) {
+        spokenWords = interimWords = "";
+        var index = event.resultIndex;
+        isFinal = results[index].isFinal;
+        if (isFinal) {
+          spokenWords = results[index][0].transcript;
+          inputText = spokenWords;
+          talkCount++;
+        } else {
+          for (index = talkCount; index < numberOfResults; index++) {
+            var transcript = results[index][0].transcript;
+            interimWords += transcript;
+            if (.5 < results[index][0].confidence) {
+              spokenWords += transcript;
+            }
+          }
+          inputText = interimWords;
+        }
+    }
+    //transcription
+    outlineHelper(transcription_current_under, inputText);
+    if(isFinal){
+        transcription.insertBefore(transcription_current.cloneNode(true),transcription_current);
+        outlineHelper(transcription_current_under, "");
+    }
+
+    //translation1
     const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
     inputText,
     )}`;
-    const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
-    inputText,
-    )}`;
-    
     fetch(url1)
     .then((response) => response.json())
     .then((json) => {
         outlineHelper(translation1_current_under, json[0].map((item) => item[0]).join(""));
+        if(isFinal){
+            translation1.insertBefore(translation1_current.cloneNode(true),translation1_current);
+            outlineHelper(translation1_current_under, "");
+        }
     })
     .catch((error) => {
         console.log(error);
     });
         
-
+    //translation2
+    const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
+    inputText,
+    )}`;
     fetch(url2)
     .then((response) => response.json())
     .then((json) => {
         outlineHelper(translation2_current_under, json[0].map((item) => item[0]).join(""));
+        if(isFinal){
+            translation2.insertBefore(translation2_current.cloneNode(true),translation2_current);
+            outlineHelper(translation2_current_under, "");
+        }
     })
     .catch((error) => {
         console.log(error);
     });
         
     
-    if(result.isFinal){
-        transcription.insertBefore(transcription_current.cloneNode(true),transcription_current);
-        translation1.insertBefore(translation1_current.cloneNode(true),translation1_current);
-        translation2.insertBefore(translation2_current.cloneNode(true),translation2_current);
-
-        if(transcription.childElementCount >10){
+    //remove if too much lines
+    if(transcription.childElementCount >10){
             transcription.firstElementChild.remove();
             translation1.firstElementChild.remove();
             translation2.firstElementChild.remove();
-        }
-
-        outlineHelper(transcription_current_under, "");
-        outlineHelper(translation1_current_under, "");
-        outlineHelper(translation2_current_under, "");
     }
   }
 
@@ -350,4 +381,3 @@ function startListening() {
 }
 
 startBtn.addEventListener('click', startListening);
-
