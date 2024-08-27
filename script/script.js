@@ -339,6 +339,7 @@ function startListening() {
   recognition.onend = function(event) {
       //Fired when the speech recognition service has disconnected.
       console.log('SpeechRecognition.onend');
+      spokenWords = interimWords = "";
       initialized = false;
       startBtn.textContent = '시작';
       recognition.start();
