@@ -1,7 +1,22 @@
 ﻿
 
 const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
-
+const canWakeLock = () => 'wakeLock' in navigator;
+let wakelock;
+async function lockWakeState() {
+  if(!canWakeLock()) return;
+  try {
+    wakelock = await navigator.wakeLock.request();
+    wakelock.addEventListener('release', () => {
+      console.log('Screen Wake State Locked:', !wakelock.released);
+    });
+    console.log('Screen Wake State Locked:', !wakelock.released);
+  } catch(e) {
+    console.error('Failed to lock wake state with reason:', e.message);
+  }
+}
+await lockWakeState();
+setTimeout(releaseWakeState, 5000);
 const dropdowns = document.querySelectorAll(".dropdown-container"),
   inputLanguageDropdown = document.querySelector("#input-language"),
   outputLanguageDropdown = document.querySelector("#output-language"),
