@@ -15,7 +15,7 @@ async function lockWakeState() {
     console.error('Failed to lock wake state with reason:', e.message);
   }
 }
-await lockWakeState();
+lockWakeState();
 
 const dropdowns = document.querySelectorAll(".dropdown-container"),
   inputLanguageDropdown = document.querySelector("#input-language"),
