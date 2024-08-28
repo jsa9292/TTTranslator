@@ -1,17 +1,12 @@
 ﻿
 
+const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+
 const dropdowns = document.querySelectorAll(".dropdown-container"),
   inputLanguageDropdown = document.querySelector("#input-language"),
   outputLanguageDropdown = document.querySelector("#output-language"),
   outputLanguageDropdown2 = document.querySelector("#output-language2");
 
-
-var inputLanguage =
-inputLanguageDropdown.querySelector(".selected").dataset.value;
-var outputLanguage =
-outputLanguageDropdown.querySelector(".selected").dataset.value;
-var outputLanguage2 =
-outputLanguageDropdown2.querySelector(".selected").dataset.value;
 
 function populateDropdown(dropdown, options) {
   dropdown.querySelector("ul").innerHTML = "";
@@ -48,6 +43,7 @@ dropdowns.forEach((dropdown) => {
     });
   });
 });
+
 document.addEventListener("click", (e) => {
   dropdowns.forEach((dropdown) => {
     if (!dropdown.contains(e.target)) {
@@ -80,6 +76,13 @@ if(outputSaved2){
 
 
 
+
+var inputLanguage =
+inputLanguageDropdown.querySelector(".selected").dataset.value;
+var outputLanguage =
+outputLanguageDropdown.querySelector(".selected").dataset.value;
+var outputLanguage2 =
+outputLanguageDropdown2.querySelector(".selected").dataset.value;
 
 
 
@@ -234,8 +237,8 @@ function startListening() {
 
   recognition = new SpeechRecognition();
   recognition.grammars = speechRecognitionList;
-  recognition.lang = 'ko-KR';
-  recognition.interimResults = true;
+  recognition.lang = inputLanguage;
+  recognition.interimResults = !isMobile;
   recognition.maxAlternatives = 10;
   recognition.continuous = true;
   recognition.start();
