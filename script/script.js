@@ -251,7 +251,7 @@ function startListening() {
   speechRecognitionList.addFromString(grammar, 1);
 
   recognition = new SpeechRecognition();
-  recognition.grammars = speechRecognitionList;
+  //recognition.grammars = speechRecognitionList;
   recognition.lang = inputLanguage;
   recognition.interimResults = true;
   recognition.maxAlternatives = 10;
