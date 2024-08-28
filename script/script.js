@@ -272,9 +272,9 @@ function startListening() {
           inputText = interimWords;
         }
     }
+    //transcription
+    outlineHelper(transcription_current_under, inputText);
     if(!isMobile){
-        //transcription
-        outlineHelper(transcription_current_under, inputText);
         if(isFinal){
             var newLine = transcription_current.cloneNode(true);    
             transcription.insertBefore(newLine,transcription_current);
@@ -332,10 +332,7 @@ function startListening() {
   }
 
   recognition.onspeechend = function() {
-    console.log("SpeechRecognition.onspeechend")
     if(isMobile){
-        //transcription
-        outlineHelper(transcription_current_under, inputText);
         if(isFinal){
             var newLine = transcription_current.cloneNode(true);    
             transcription.insertBefore(newLine,transcription_current);
