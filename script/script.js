@@ -274,6 +274,7 @@ function startListening() {
     }
     //transcription
     outlineHelper(transcription_current_under, inputText);
+
     if(!isMobile){
         if(isFinal){
             var newLine = transcription_current.cloneNode(true);    
