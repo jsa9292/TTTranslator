@@ -252,7 +252,6 @@ function startListening() {
     //recognition work
     var results = event.results;
     var numberOfResults = results.length;
-    console.log(numberOfResults);
     if (0 != numberOfResults) {
         spokenWords = interimWords = "";
         var index = event.resultIndex;
