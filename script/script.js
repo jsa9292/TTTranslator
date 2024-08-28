@@ -16,7 +16,7 @@ async function lockWakeState() {
   }
 }
 await lockWakeState();
-setTimeout(releaseWakeState, 5000);
+
 const dropdowns = document.querySelectorAll(".dropdown-container"),
   inputLanguageDropdown = document.querySelector("#input-language"),
   outputLanguageDropdown = document.querySelector("#output-language"),
