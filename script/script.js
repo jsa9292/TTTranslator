@@ -238,7 +238,7 @@ function startListening() {
   recognition = new SpeechRecognition();
   recognition.grammars = speechRecognitionList;
   recognition.lang = inputLanguage;
-  recognition.interimResults = !isMobile;
+  recognition.interimResults = true;
   recognition.maxAlternatives = 10;
   recognition.continuous = true;
   recognition.start();
@@ -272,65 +272,124 @@ function startListening() {
           inputText = interimWords;
         }
     }
-    //transcription
-    outlineHelper(transcription_current_under, inputText);
-    if(isFinal){
-        var newLine = transcription_current.cloneNode(true);    
-        transcription.insertBefore(newLine,transcription_current);
-        newLine.classList.add("fade-out-5s");
-        newLine.onanimationend = () => {
-            newLine.remove();
-        };
-        outlineHelper(transcription_current_under, "");
-    }
+    if(!isMobile){
+        //transcription
+        outlineHelper(transcription_current_under, inputText);
+        if(isFinal){
+            var newLine = transcription_current.cloneNode(true);    
+            transcription.insertBefore(newLine,transcription_current);
+            newLine.classList.add("fade-out-5s");
+            newLine.onanimationend = () => {
+                newLine.remove();
+            };
+            outlineHelper(transcription_current_under, "");
+        }
 
-    //translation1
-    const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
-    inputText,
-    )}`;
-    fetch(url1)
-    .then((response) => response.json())
-    .then((json) => {
-        outlineHelper(translation1_current_under, json[0].map((item) => item[0]).join(""));
-        if(isFinal){
-            var newLine = translation1_current.cloneNode(true);
-            translation1.insertBefore(newLine,translation1_current);
-            newLine.classList.add("fade-out-5s");
-            newLine.onanimationend = () => {
-                newLine.remove();
-            };
-            outlineHelper(translation1_current_under, "");
-        }
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+        //translation1
+        const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
+        inputText,
+        )}`;
+        fetch(url1)
+        .then((response) => response.json())
+        .then((json) => {
+            outlineHelper(translation1_current_under, json[0].map((item) => item[0]).join(""));
+            if(isFinal){
+                var newLine = translation1_current.cloneNode(true);
+                translation1.insertBefore(newLine,translation1_current);
+                newLine.classList.add("fade-out-5s");
+                newLine.onanimationend = () => {
+                    newLine.remove();
+                };
+                outlineHelper(translation1_current_under, "");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
         
-    //translation2
-    const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
-    inputText,
-    )}`;
-    fetch(url2)
-    .then((response) => response.json())
-    .then((json) => {
-        outlineHelper(translation2_current_under, json[0].map((item) => item[0]).join(""));
-        if(isFinal){
-            var newLine = translation2_current.cloneNode(true);
-            translation2.insertBefore(newLine,translation2_current);
-            newLine.classList.add("fade-out-5s");
-            newLine.onanimationend = () => {
-                newLine.remove();
-            };
-            outlineHelper(translation2_current_under, "");
-        }
-    })
-    .catch((error) => {
-        console.log(error);
-    });
+        //translation2
+        const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
+        inputText,
+        )}`;
+        fetch(url2)
+        .then((response) => response.json())
+        .then((json) => {
+            outlineHelper(translation2_current_under, json[0].map((item) => item[0]).join(""));
+            if(isFinal){
+                var newLine = translation2_current.cloneNode(true);
+                translation2.insertBefore(newLine,translation2_current);
+                newLine.classList.add("fade-out-5s");
+                newLine.onanimationend = () => {
+                    newLine.remove();
+                };
+                outlineHelper(translation2_current_under, "");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
   }
 
   recognition.onspeechend = function() {
     console.log("SpeechRecognition.onspeechend")
+    if(isMobile){
+        //transcription
+        outlineHelper(transcription_current_under, inputText);
+        if(isFinal){
+            var newLine = transcription_current.cloneNode(true);    
+            transcription.insertBefore(newLine,transcription_current);
+            newLine.classList.add("fade-out-5s");
+            newLine.onanimationend = () => {
+                newLine.remove();
+            };
+            outlineHelper(transcription_current_under, "");
+        }
+
+        //translation1
+        const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
+        inputText,
+        )}`;
+        fetch(url1)
+        .then((response) => response.json())
+        .then((json) => {
+            outlineHelper(translation1_current_under, json[0].map((item) => item[0]).join(""));
+            if(isFinal){
+                var newLine = translation1_current.cloneNode(true);
+                translation1.insertBefore(newLine,translation1_current);
+                newLine.classList.add("fade-out-5s");
+                newLine.onanimationend = () => {
+                    newLine.remove();
+                };
+                outlineHelper(translation1_current_under, "");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+        
+        //translation2
+        const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
+        inputText,
+        )}`;
+        fetch(url2)
+        .then((response) => response.json())
+        .then((json) => {
+            outlineHelper(translation2_current_under, json[0].map((item) => item[0]).join(""));
+            if(isFinal){
+                var newLine = translation2_current.cloneNode(true);
+                translation2.insertBefore(newLine,translation2_current);
+                newLine.classList.add("fade-out-5s");
+                newLine.onanimationend = () => {
+                    newLine.remove();
+                };
+                outlineHelper(translation2_current_under, "");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+        });
+    }
   }
 
   recognition.onerror = function(event) {
@@ -373,17 +432,11 @@ function startListening() {
   recognition.onsoundstart = function(event) {
       //Fired when any sound — recognisable speech or not — has been detected.
       console.log('SpeechRecognition.onsoundstart');
-      
-      //greenScreen.classList.remove("fade-out-box");
-      //greenScreen.classList.add("fade-in-box");
   }
   
   recognition.onsoundend = function(event) {
       //Fired when any sound — recognisable speech or not — has stopped being detected.
       console.log('SpeechRecognition.onsoundend');
-      
-      //greenScreen.classList.remove("fade-in-box");
-     // greenScreen.classList.add("fade-out-box");
   }
   
   recognition.onspeechstart = function (event) {
