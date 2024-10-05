@@ -168,7 +168,6 @@
     width: 100%;
 
 }
-
 .under{
   font-family: sans-serif;
   padding:3px;
@@ -185,6 +184,13 @@
   -webkit-text-stroke-color: black;
   position: relative;
   color: var(--translation-color);
+  
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
 }
 .over{

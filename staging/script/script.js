@@ -373,7 +373,6 @@ function startListening() {
                     json[0].map((item) => item[0]).join("")
                 );
                 if (isFinal) {
-                    return;
                     var newLine = translation1_current.cloneNode(true);
                     translation1.insertBefore(newLine, translation1_current);
                     newLine.classList.add("fade-out-5s");
@@ -398,7 +397,6 @@ function startListening() {
                     json[0].map((item) => item[0]).join("")
                 );
                 if (isFinal) {
-                    return;
                     var newLine = translation2_current.cloneNode(true);
                     translation2.insertBefore(newLine, translation2_current);
                     newLine.classList.add("fade-out-5s");
@@ -442,22 +440,6 @@ function startListening() {
     };
     recognition.onspeechend = function () {
         console.log("SpeechRecognition.onspeechend");
-        
-                    var newLine = translation1_current.cloneNode(true);
-                    translation1.insertBefore(newLine, translation1_current);
-                    newLine.classList.add("fade-out-5s");
-                    newLine.onanimationend = () => {
-                        newLine.remove();
-                    };
-                    outlineHelper(translation1_current_under, "");
-                    
-                    var newLine2 = translation2_current.cloneNode(true);
-                    translation2.insertBefore(newLine2, translation2_current);
-                    newLine2.classList.add("fade-out-5s");
-                    newLine2.onanimationend = () => {
-                        newLine2.remove();
-                    };
-                    outlineHelper(translation2_current_under, "");
     };
     recognition.onaudiostart = function () {
         //Fired when the user agent has started to capture audio.
