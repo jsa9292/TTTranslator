@@ -286,7 +286,9 @@ function outlineHelper(element, text) {
     element.textContent = text;
     element.nextElementSibling.textContent = text;
 }
-
+function sleep(ms) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+}
 function startListening() {
     if (initialized) {
         recognition.abort();
@@ -307,8 +309,8 @@ function startListening() {
     //recognition.grammars = speechRecognitionList;
     recognition.lang = inputLanguage;
     recognition.interimResults = true;
-    recognition.maxAlternatives = 10;
-    recognition.continuous = true;
+    recognition.maxAlternatives = 0;
+    recognition.continuous = false;
     recognition.start();
 
     var spokenWords;
