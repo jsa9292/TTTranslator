@@ -286,9 +286,6 @@ function outlineHelper(element, text) {
     element.textContent = text;
     element.nextElementSibling.textContent = text;
 }
-function sleep(ms) {
-    return new Promise((resolve) => setTimeout(resolve, ms));
-}
 function startListening() {
     if (initialized) {
         recognition.abort();
@@ -344,17 +341,10 @@ function startListening() {
                 inputText = interimWords;
             }
         }
+        console.log(isFinal);
         //transcription
         outlineHelper(transcription_current_under, inputText);
-        if (isFinal) {
-            var newLine = transcription_current.cloneNode(true);
-            transcription.insertBefore(newLine, transcription_current);
-            newLine.classList.add("fade-out-5s");
-            newLine.onanimationend = () => {
-                newLine.remove();
-            };
-            outlineHelper(transcription_current_under, "");
-        }
+
         if (translateCycle < translateThres && !isFinal) {
             translateCycle += 1;
             return;
@@ -372,15 +362,6 @@ function startListening() {
                     translation1_current_under,
                     json[0].map((item) => item[0]).join("")
                 );
-                if (isFinal) {
-                    var newLine = translation1_current.cloneNode(true);
-                    translation1.insertBefore(newLine, translation1_current);
-                    newLine.classList.add("fade-out-5s");
-                    newLine.onanimationend = () => {
-                        newLine.remove();
-                    };
-                    outlineHelper(translation1_current_under, "");
-                }
             })
             .catch((error) => {
                 console.log(error);
@@ -396,19 +377,38 @@ function startListening() {
                     translation2_current_under,
                     json[0].map((item) => item[0]).join("")
                 );
-                if (isFinal) {
-                    var newLine = translation2_current.cloneNode(true);
-                    translation2.insertBefore(newLine, translation2_current);
-                    newLine.classList.add("fade-out-5s");
-                    newLine.onanimationend = () => {
-                        newLine.remove();
-                    };
-                    outlineHelper(translation2_current_under, "");
-                }
             })
             .catch((error) => {
                 console.log(error);
             });
+        if (isFinal) {
+            var newLine = transcription_current.cloneNode(true);
+            console.log("transcription_current newline");
+            transcription.insertBefore(newLine, transcription_current);
+            newLine.classList.add("fade-out-5s");
+            newLine.onanimationend = () => {
+                newLine.remove();
+            };
+            outlineHelper(transcription_current_under, " ");
+
+            var newLine1 = translation1_current.cloneNode(true);
+            console.log("translation1_current newline");
+            translation1.insertBefore(newLine1, translation1_current);
+            newLine1.classList.add("fade-out-5s");
+            newLine1.onanimationend = () => {
+                newLine1.remove();
+            };
+            outlineHelper(translation1_current_under, " ");
+
+            var newLine2 = translation2_current.cloneNode(true);
+            console.log("translation2_current newline");
+            translation2.insertBefore(newLine2, translation2_current);
+            newLine2.classList.add("fade-out-5s");
+            newLine2.onanimationend = () => {
+                newLine2.remove();
+            };
+            outlineHelper(translation2_current_under, " ");
+        }
     };
     recognition.onerror = function (event) {
         startBtn.disabled = false;
@@ -466,182 +466,10 @@ function startListening() {
         console.log("SpeechRecognition.onspeechstart");
     };
 }
-//FIXME
-function startListeningMobile() {
-    if (initialized) {
-        recognition.abort();
-        return;
-    }
-    var phrase = phrases[randomPhrase()];
-    // To ensure case consistency while checking with the returned output text
-    phrase = phrase.toLowerCase();
-
-    var grammar =
-        "#JSGF V1.0; grammar phrase; public <phrase> = " + phrase + ";";
-    var speechRecognitionList = new SpeechGrammarList();
-    speechRecognitionList.addFromString("치지직");
-    speechRecognitionList.addFromString("뚜야");
-    speechRecognitionList.addFromString(grammar, 1);
-
-    recognition = new SpeechRecognition();
-    //recognition.grammars = speechRecognitionList;
-    recognition.lang = inputLanguage;
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 10;
-    recognition.continuous = true;
-    recognition.start();
-
-    var spokenWords;
-    var interimWords;
-    var inputText;
-    var talkCount = 0;
-    var isFinal;
-
-    recognition.onresult = function (event) {
-        //recognition work
-        var results = event.results;
-        var numberOfResults = results.length;
-        if (0 !== numberOfResults) {
-            spokenWords = interimWords = "";
-            var index = event.resultIndex;
-            isFinal = results[index].isFinal;
-            if (isFinal) {
-                spokenWords = results[index][0].transcript;
-                inputText = spokenWords;
-                talkCount++;
-            } else {
-                for (index = talkCount; index < numberOfResults; index++) {
-                    var transcript = results[index][0].transcript;
-                    interimWords += transcript;
-                    if (0.5 < results[index][0].confidence) {
-                        spokenWords += transcript;
-                    }
-                }
-                inputText = interimWords;
-            }
-        }
-        //transcription
-        outlineHelper(transcription_current_under, inputText);
-    };
-    recognition.onspeechend = function () {
-        if (isFinal) {
-            var newLine = transcription_current.cloneNode(true);
-            transcription.insertBefore(newLine, transcription_current);
-            newLine.classList.add("fade-out-5s");
-            newLine.onanimationend = () => {
-                newLine.remove();
-            };
-            outlineHelper(transcription_current_under, "");
-        }
-
-        //translation1
-        const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
-            inputText
-        )}`;
-        fetch(url1)
-            .then((response) => response.json())
-            .then((json) => {
-                outlineHelper(
-                    translation1_current_under,
-                    json[0].map((item) => item[0]).join("")
-                );
-                if (isFinal) {
-                    var newLine = translation1_current.cloneNode(true);
-                    translation1.insertBefore(newLine, translation1_current);
-                    newLine.classList.add("fade-out-5s");
-                    newLine.onanimationend = () => {
-                        newLine.remove();
-                    };
-                    outlineHelper(translation1_current_under, "");
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-
-        //translation2
-        const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
-            inputText
-        )}`;
-        fetch(url2)
-            .then((response) => response.json())
-            .then((json) => {
-                outlineHelper(
-                    translation2_current_under,
-                    json[0].map((item) => item[0]).join("")
-                );
-                if (isFinal) {
-                    var newLine = translation2_current.cloneNode(true);
-                    translation2.insertBefore(newLine, translation2_current);
-                    newLine.classList.add("fade-out-5s");
-                    newLine.onanimationend = () => {
-                        newLine.remove();
-                    };
-                    outlineHelper(translation2_current_under, "");
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-            });
-    };
-    recognition.onspeechstart = function () {
-        //Fired when sound that is recognised by the speech recognition service as speech has been detected.
-        console.log("SpeechRecognition.onspeechstart");
-        inputLanguage =
-            inputLanguageDropdown.querySelector(".selected").dataset.value;
-        outputLanguage =
-            outputLanguageDropdown.querySelector(".selected").dataset.value;
-        outputLanguage2 =
-            outputLanguageDropdown2.querySelector(".selected").dataset.value;
-    };
-    recognition.onerror = function (event) {
-        startBtn.disabled = false;
-        startBtn.textContent = "에러";
-        console.log(event);
-        transcription_current_under.textContent = event.message;
-        transcription_current_over.textContent = event.message;
-    };
-    recognition.onstart = function () {
-        //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
-        console.log("SpeechRecognition.onstart");
-        initialized = true;
-        startBtn.textContent = "정지";
-    };
-    recognition.onend = function () {
-        //Fired when the speech recognition service has disconnected.
-        console.log("SpeechRecognition.onend");
-        spokenWords = interimWords = "";
-        talkCount = 0;
-        initialized = false;
-        startBtn.textContent = "시작";
-        recognition.start();
-    };
-    recognition.onnomatch = function () {
-        //Fired when the speech recognition service returns a final result with no significant recognition. This may involve some degree of recognition, which doesn't meet or exceed the confidence threshold.
-        console.log("SpeechRecognition.onnomatch");
-    };
-    recognition.onsoundstart = function () {
-        //Fired when any sound — recognisable speech or not — has been detected.
-        console.log("SpeechRecognition.onsoundstart");
-    };
-    recognition.onsoundend = function () {
-        //Fired when any sound — recognisable speech or not — has stopped being detected.
-        console.log("SpeechRecognition.onsoundend");
-    };
-    recognition.onaudiostart = function () {
-        //Fired when the user agent has started to capture audio.
-        console.log("SpeechRecognition.onaudiostart");
-    };
-    recognition.onaudioend = function () {
-        //Fired when the user agent has finished capturing audio.
-        console.log("SpeechRecognition.onaudioend");
-    };
-}
-
 //Main
 function main() {
     if (isMobile) {
-        startBtn.addEventListener("click", startListeningMobile);
+        startBtn.addEventListener("click", startListening);
     } else {
         startBtn.addEventListener("click", startListening);
     }
