@@ -316,10 +316,10 @@ function startListening() {
     var inputText;
     var talkCount = 0;
     var isFinal;
-    var translateThres = slider6.value;
     var translateCycle = 0;
 
     recognition.onresult = function (event) {
+        var translateThres = slider6.value;
         //recognition work
         var results = event.results;
         var numberOfResults = results.length;
