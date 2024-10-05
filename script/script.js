@@ -421,6 +421,7 @@ function startListening() {
             newLine.remove();
         };
         outlineHelper(transcription_current_under, "");
+        console.log("transcription added");
 
         var newLine1 = translation1_current.cloneNode(true);
         translation1.insertBefore(newLine1, translation1_current);
