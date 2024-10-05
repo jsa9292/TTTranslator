@@ -1,1 +1,500 @@
-﻿var _0x509284=_0x244d;function _0x2537(){var _0x575add=['SpeechRecognition.onspeechend','then','maxAlternatives','1356XFjQob','release','.selected','832046ofiGVU','why\x20did\x20you\x20talk\x20while\x20I\x20was\x20talking','&tl=','#slider5','onend','#slider3','userAgent','.listenButton','SpeechRecognition.onaudioend','test','.options-wrapper','SpeechRecognition.onspeechstart','wakeLock','--translation-align','보이기','message','join','.transcription','lang','SpeechRecognition.onend','.current','--translation-font-weight','onsoundend','random','output-language','nextElementSibling','--translation-font-size','#JSGF\x20V1.0;\x20grammar\x20phrase;\x20public\x20<phrase>\x20=\x20','setProperty','cloneNode','interimResults','#output-language','SpeechRecognition.onnomatch','치지직','log','.dropdown-container','results','onstart','onspeechend','Screen\x20Wake\x20State\x20Locked:','#input-language','33815wUiBmt','value','onaudioend','querySelectorAll','request','length','toLowerCase','.translation1','center','addFromString','style','right','--history-fade-time','createElement','getItem','textContent','onaudiostart','26624870GyyCls','catch','SpeechRecognition.onsoundstart','.option','setItem','onspeechstart','disabled','map','innerHTML','forEach','active','input','navigator','onanimationend','.collapse','8967XPHgQR','I\x20love\x20to\x20sing\x20because\x20it\x27s\x20fun','[data-value=\x22','add','remove','onnomatch','display','addEventListener','3036096qJIqtB','dispatchEvent','toggle','.translation2','132xPmiQa','transcript','insertBefore','confidence','SpeechRecognition.onsoundend','#output-language2','click','3FmCVom','native','input-language','continuous','abort','onerror','none','#slider4','11549300VseAFg','floor','SpeechRecognition.onaudiostart','dataset','classList','.under','option','released','onresult','resultIndex','where\x20are\x20you\x20going','966296jAYLAZ','onsoundstart','can\x20I\x20call\x20you\x20tomorrow','documentElement','querySelector','json','https://translate.googleapis.com/translate_a/single?client=gtx&sl=','start','output-language2','fade-out-5s','#slider1','.over','#slider6','&dt=t&q=','she\x20sells\x20seashells\x20on\x20the\x20seashore','name'];_0x2537=function(){return _0x575add;};return _0x2537();}(function(_0x3f948b,_0x546737){var _0x2b13a8=_0x244d,_0x1bcad5=_0x3f948b();while(!![]){try{var _0x19a8a8=-parseInt(_0x2b13a8(0x16b))/0x1*(-parseInt(_0x2b13a8(0x10f))/0x2)+-parseInt(_0x2b13a8(0x158))/0x3*(parseInt(_0x2b13a8(0x164))/0x4)+-parseInt(_0x2b13a8(0x138))/0x5*(parseInt(_0x2b13a8(0x10c))/0x6)+-parseInt(_0x2b13a8(0x173))/0x7+-parseInt(_0x2b13a8(0x17e))/0x8+parseInt(_0x2b13a8(0x160))/0x9+parseInt(_0x2b13a8(0x149))/0xa;if(_0x19a8a8===_0x546737)break;else _0x1bcad5['push'](_0x1bcad5['shift']());}catch(_0x46bbfc){_0x1bcad5['push'](_0x1bcad5['shift']());}}}(_0x2537,0xcf8da));var SpeechRecognition=SpeechRecognition||webkitSpeechRecognition,SpeechGrammarList=SpeechGrammarList||webkitSpeechGrammarList,SpeechRecognitionEvent=SpeechRecognitionEvent||webkitSpeechRecognitionEvent;const isMobile=/iPhone|iPad|iPod|Android/i[_0x509284(0x118)](window[_0x509284(0x155)][_0x509284(0x115)]),canWakeLock=()=>_0x509284(0x11b)in navigator;let wakelock;async function lockWakeState(){var _0x4f5b57=_0x509284;if(!canWakeLock())return;try{wakelock=await navigator[_0x4f5b57(0x11b)][_0x4f5b57(0x13c)](),wakelock['addEventListener'](_0x4f5b57(0x10d),()=>{var _0x532288=_0x4f5b57;console['log'](_0x532288(0x136),!wakelock['released']);}),console[_0x4f5b57(0x131)](_0x4f5b57(0x136),!wakelock[_0x4f5b57(0x17a)]);}catch(_0x3aaa4d){console['error']('Failed\x20to\x20lock\x20wake\x20state\x20with\x20reason:',_0x3aaa4d[_0x4f5b57(0x11e)]);}}lockWakeState();const dropdowns=document['querySelectorAll'](_0x509284(0x132)),inputLanguageDropdown=document['querySelector'](_0x509284(0x137)),outputLanguageDropdown=document[_0x509284(0xfd)](_0x509284(0x12e)),outputLanguageDropdown2=document[_0x509284(0xfd)](_0x509284(0x169));function populateDropdown(_0xffb668,_0x588c82){var _0x4e76c9=_0x509284;_0xffb668['querySelector']('ul')[_0x4e76c9(0x151)]='',_0x588c82[_0x4e76c9(0x152)](_0xae9fb7=>{var _0x27c750=_0x4e76c9;const _0x5ef74c=document[_0x27c750(0x145)]('li'),_0x1e8d6b=_0xae9fb7[_0x27c750(0x108)]+'\x20('+_0xae9fb7[_0x27c750(0x16c)]+')';_0x5ef74c[_0x27c750(0x151)]=_0x1e8d6b,_0x5ef74c[_0x27c750(0x176)][_0x27c750(0x139)]=_0xae9fb7['code'],_0x5ef74c[_0x27c750(0x177)][_0x27c750(0x15b)](_0x27c750(0x179)),_0xffb668[_0x27c750(0xfd)]('ul')['appendChild'](_0x5ef74c);});}populateDropdown(inputLanguageDropdown,languages),populateDropdown(outputLanguageDropdown,languages),populateDropdown(outputLanguageDropdown2,languages),dropdowns['forEach'](_0xde43b6=>{var _0x24d9d8=_0x509284;_0xde43b6[_0x24d9d8(0x15f)](_0x24d9d8(0x16a),()=>{var _0x2bb1ef=_0x24d9d8;_0xde43b6[_0x2bb1ef(0x177)][_0x2bb1ef(0x162)](_0x2bb1ef(0x153));}),_0xde43b6[_0x24d9d8(0x13b)](_0x24d9d8(0x14c))['forEach'](_0x308004=>{var _0x1f5084=_0x24d9d8;_0x308004[_0x1f5084(0x15f)](_0x1f5084(0x16a),()=>{var _0x567117=_0x1f5084;_0xde43b6[_0x567117(0x13b)]('.option')[_0x567117(0x152)](_0x50325a=>{var _0x429025=_0x567117;_0x50325a[_0x429025(0x177)][_0x429025(0x15c)](_0x429025(0x153));}),_0x308004[_0x567117(0x177)][_0x567117(0x15b)](_0x567117(0x153));const _0x545831=_0xde43b6[_0x567117(0xfd)](_0x567117(0x10e));_0x545831['innerHTML']=_0x308004[_0x567117(0x151)],_0x545831[_0x567117(0x176)]['value']=_0x308004['dataset'][_0x567117(0x139)],localStorage[_0x567117(0x14d)](_0xde43b6['id'],_0x545831[_0x567117(0x176)]['value']);});});}),document['addEventListener'](_0x509284(0x16a),_0x409dd1=>{var _0x2f0719=_0x509284;dropdowns[_0x2f0719(0x152)](_0x591764=>{var _0x353712=_0x2f0719;!_0x591764['contains'](_0x409dd1['target'])&&_0x591764[_0x353712(0x177)][_0x353712(0x15c)](_0x353712(0x153));});});var inputSaved=localStorage['getItem'](_0x509284(0x16d));console[_0x509284(0x131)]('[data-value=\x22'+inputSaved+'\x22]');inputSaved&&inputLanguageDropdown[_0x509284(0xfd)](_0x509284(0x15a)+inputSaved+'\x22]')[_0x509284(0x161)](new Event(_0x509284(0x16a)));function _0x244d(_0x3e02a5,_0x570a0d){var _0x2537cd=_0x2537();return _0x244d=function(_0x244d11,_0x26ad9a){_0x244d11=_0x244d11-0xfb;var _0x5d379f=_0x2537cd[_0x244d11];return _0x5d379f;},_0x244d(_0x3e02a5,_0x570a0d);}var outputSaved=localStorage[_0x509284(0x146)](_0x509284(0x127));console[_0x509284(0x131)](_0x509284(0x15a)+outputSaved+'\x22]');outputSaved&&outputLanguageDropdown[_0x509284(0xfd)](_0x509284(0x15a)+outputSaved+'\x22]')[_0x509284(0x161)](new Event(_0x509284(0x16a)));var outputSaved2=localStorage['getItem'](_0x509284(0x101));console[_0x509284(0x131)]('[data-value=\x22'+outputSaved2+'\x22]');outputSaved2&&outputLanguageDropdown2[_0x509284(0xfd)]('[data-value=\x22'+outputSaved2+'\x22]')['dispatchEvent'](new Event(_0x509284(0x16a)));var inputLanguage=inputLanguageDropdown['querySelector'](_0x509284(0x10e))[_0x509284(0x176)][_0x509284(0x139)],outputLanguage=outputLanguageDropdown[_0x509284(0xfd)](_0x509284(0x10e))[_0x509284(0x176)][_0x509284(0x139)],outputLanguage2=outputLanguageDropdown2[_0x509284(0xfd)]('.selected')[_0x509284(0x176)][_0x509284(0x139)],content=document[_0x509284(0xfd)](_0x509284(0x119)),coll=document[_0x509284(0xfd)](_0x509284(0x157));coll[_0x509284(0x15f)](_0x509284(0x16a),function(){var _0x547d01=_0x509284;this[_0x547d01(0x177)][_0x547d01(0x162)](_0x547d01(0x153)),content[_0x547d01(0x142)][_0x547d01(0x15e)]=='block'?(content['style'][_0x547d01(0x15e)]=_0x547d01(0x171),coll[_0x547d01(0x151)]=_0x547d01(0x11d)):(content[_0x547d01(0x142)]['display']='block',coll[_0x547d01(0x151)]='숨기기');});var transcription=document[_0x509284(0xfd)](_0x509284(0x120)),transcription_current=transcription[_0x509284(0xfd)](_0x509284(0x123)),transcription_current_under=transcription_current[_0x509284(0xfd)]('.under'),transcription_current_over=transcription_current[_0x509284(0xfd)](_0x509284(0x104)),translation1=document[_0x509284(0xfd)](_0x509284(0x13f)),translation1_current=translation1[_0x509284(0xfd)](_0x509284(0x123)),translation1_current_under=translation1_current[_0x509284(0xfd)](_0x509284(0x178)),translation2=document['querySelector'](_0x509284(0x163)),translation2_current=translation2[_0x509284(0xfd)](_0x509284(0x123)),translation2_current_under=translation2_current[_0x509284(0xfd)]('.under'),startBtn=document[_0x509284(0xfd)](_0x509284(0x116)),recognition,initialized=![],slider1=document[_0x509284(0xfd)](_0x509284(0x103));localStorage[_0x509284(0x146)](slider1['id'])&&(slider1['value']=localStorage[_0x509284(0x146)](slider1['id']));slider1[_0x509284(0x15f)](_0x509284(0x154),function(){var _0xb29903=_0x509284;document[_0xb29903(0xfc)]['style']['setProperty'](_0xb29903(0x129),this[_0xb29903(0x139)]+'px'),this[_0xb29903(0x128)][_0xb29903(0x147)]=this[_0xb29903(0x139)]+'px',localStorage[_0xb29903(0x14d)](this['id'],this['value']);},![]),slider1[_0x509284(0x161)](new Event(_0x509284(0x154)));var slider2=document['querySelector']('#slider2');localStorage['getItem'](slider2['id'])&&(slider2['value']=localStorage[_0x509284(0x146)](slider2['id']));slider2[_0x509284(0x15f)](_0x509284(0x154),function(){var _0x1fa488=_0x509284;document['documentElement']['style'][_0x1fa488(0x12b)](_0x1fa488(0x124),this[_0x1fa488(0x139)]),this[_0x1fa488(0x128)][_0x1fa488(0x147)]=this[_0x1fa488(0x139)],localStorage[_0x1fa488(0x14d)](this['id'],this['value']);},![]),slider2[_0x509284(0x161)](new Event(_0x509284(0x154)));var slider3=document[_0x509284(0xfd)](_0x509284(0x114));localStorage[_0x509284(0x146)](slider3['id'])&&(slider3[_0x509284(0x139)]=localStorage[_0x509284(0x146)](slider3['id']));slider3[_0x509284(0x15f)](_0x509284(0x154),function(){var _0xfbadaa=_0x509284;document[_0xfbadaa(0xfc)][_0xfbadaa(0x142)][_0xfbadaa(0x12b)]('--translation-outline-thick',this[_0xfbadaa(0x139)]+'px'),this[_0xfbadaa(0x128)][_0xfbadaa(0x147)]=this['value']+'px',localStorage['setItem'](this['id'],this[_0xfbadaa(0x139)]);},![]),slider3[_0x509284(0x161)](new Event(_0x509284(0x154)));var slider4=document[_0x509284(0xfd)](_0x509284(0x172));localStorage['getItem'](slider4['id'])&&(slider4[_0x509284(0x139)]=localStorage[_0x509284(0x146)](slider4['id']));slider4[_0x509284(0x15f)](_0x509284(0x154),function(){var _0x92cda4=_0x509284;localStorage['setItem'](this['id'],this[_0x92cda4(0x139)]);if(this[_0x92cda4(0x139)]==0x0)document[_0x92cda4(0xfc)][_0x92cda4(0x142)][_0x92cda4(0x12b)](_0x92cda4(0x11c),'left'),this[_0x92cda4(0x128)][_0x92cda4(0x147)]='left';else{if(this[_0x92cda4(0x139)]==0x1)document[_0x92cda4(0xfc)]['style']['setProperty'](_0x92cda4(0x11c),'center'),this['nextElementSibling'][_0x92cda4(0x147)]=_0x92cda4(0x140);else this[_0x92cda4(0x139)]==0x2&&(document[_0x92cda4(0xfc)]['style'][_0x92cda4(0x12b)](_0x92cda4(0x11c),_0x92cda4(0x143)),this[_0x92cda4(0x128)][_0x92cda4(0x147)]=_0x92cda4(0x143));}},![]),slider4['dispatchEvent'](new Event(_0x509284(0x154)));var slider5=document[_0x509284(0xfd)](_0x509284(0x112));localStorage[_0x509284(0x146)](slider5['id'])&&(slider5[_0x509284(0x139)]=localStorage['getItem'](slider5['id']));slider5['addEventListener'](_0x509284(0x154),function(){var _0x19d473=_0x509284;document[_0x19d473(0xfc)][_0x19d473(0x142)]['setProperty'](_0x19d473(0x144),this[_0x19d473(0x139)]+'s'),this['nextElementSibling'][_0x19d473(0x147)]=this[_0x19d473(0x139)]+'s',localStorage['setItem'](this['id'],this['value']);},![]),slider5[_0x509284(0x161)](new Event(_0x509284(0x154)));var slider6=document[_0x509284(0xfd)](_0x509284(0x105));localStorage[_0x509284(0x146)](slider6['id'])&&(slider6['value']=localStorage[_0x509284(0x146)](slider6['id']));slider6['addEventListener'](_0x509284(0x154),function(){var _0x1cfd3d=_0x509284;this[_0x1cfd3d(0x139)]==0x0?this['nextElementSibling'][_0x1cfd3d(0x147)]='즉시':this[_0x1cfd3d(0x128)][_0x1cfd3d(0x147)]=this[_0x1cfd3d(0x139)]+'\x20회당',localStorage[_0x1cfd3d(0x14d)](this['id'],this[_0x1cfd3d(0x139)]);},![]),slider6[_0x509284(0x161)](new Event(_0x509284(0x154)));var phrases=[_0x509284(0x159),_0x509284(0x17d),_0x509284(0xfb),_0x509284(0x110),'she\x20enjoys\x20reading\x20books\x20and\x20playing\x20games',_0x509284(0x17d),'have\x20a\x20great\x20day',_0x509284(0x107)];function randomPhrase(){var _0x512ec5=_0x509284,_0x58f836=Math[_0x512ec5(0x174)](Math[_0x512ec5(0x126)]()*phrases['length']);return _0x58f836;}function outlineHelper(_0x116ce1,_0x2e63cd){var _0x2adfc3=_0x509284;_0x116ce1[_0x2adfc3(0x147)]=_0x2e63cd,_0x116ce1['nextElementSibling'][_0x2adfc3(0x147)]=_0x2e63cd;}function startListening(){var _0x20ae7a=_0x509284;if(initialized){recognition[_0x20ae7a(0x16f)]();return;}var _0x58db05=phrases[randomPhrase()];_0x58db05=_0x58db05[_0x20ae7a(0x13e)]();var _0x38f2cd=_0x20ae7a(0x12a)+_0x58db05+';',_0x28a1a9=new SpeechGrammarList();_0x28a1a9['addFromString']('치지직'),_0x28a1a9[_0x20ae7a(0x141)]('뚜야'),_0x28a1a9[_0x20ae7a(0x141)](_0x38f2cd,0x1),recognition=new SpeechRecognition(),recognition[_0x20ae7a(0x121)]=inputLanguage,recognition[_0x20ae7a(0x12d)]=!![],recognition[_0x20ae7a(0x10b)]=0xa,recognition[_0x20ae7a(0x16e)]=!![],recognition[_0x20ae7a(0x100)]();var _0x293fe5,_0x3134a7,_0x59c05a,_0x4d261d=0x0,_0x59e172,_0x503136=0x0;recognition[_0x20ae7a(0x17b)]=function(_0x32d2a4){var _0x15713e=_0x20ae7a,_0x24e948=slider6['value'],_0x538804=_0x32d2a4[_0x15713e(0x133)],_0x4572bf=_0x538804[_0x15713e(0x13d)];if(0x0!==_0x4572bf){_0x293fe5=_0x3134a7='';var _0x24cb4b=_0x32d2a4['resultIndex'];_0x59e172=_0x538804[_0x24cb4b]['isFinal'];if(_0x59e172)_0x293fe5=_0x538804[_0x24cb4b][0x0]['transcript'],_0x59c05a=_0x293fe5,_0x4d261d++;else{for(_0x24cb4b=_0x4d261d;_0x24cb4b<_0x4572bf;_0x24cb4b++){var _0x2449d8=_0x538804[_0x24cb4b][0x0]['transcript'];_0x3134a7+=_0x2449d8,0.5<_0x538804[_0x24cb4b][0x0][_0x15713e(0x167)]&&(_0x293fe5+=_0x2449d8);}_0x59c05a=_0x3134a7;}}outlineHelper(transcription_current_under,_0x59c05a);if(_0x59e172){var _0xb53044=transcription_current[_0x15713e(0x12c)](!![]);transcription[_0x15713e(0x166)](_0xb53044,transcription_current),_0xb53044[_0x15713e(0x177)][_0x15713e(0x15b)](_0x15713e(0x102)),_0xb53044[_0x15713e(0x156)]=()=>{var _0x54a495=_0x15713e;_0xb53044[_0x54a495(0x15c)]();},outlineHelper(transcription_current_under,'');}if(_0x503136<_0x24e948&&!_0x59e172){_0x503136+=0x1;return;}else _0x503136=0x0;const _0x44bf15='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+inputLanguage+_0x15713e(0x111)+outputLanguage+'&dt=t&q='+encodeURI(_0x59c05a);fetch(_0x44bf15)[_0x15713e(0x10a)](_0x1151c9=>_0x1151c9[_0x15713e(0xfe)]())['then'](_0x22f187=>{var _0x14be49=_0x15713e;outlineHelper(translation1_current_under,_0x22f187[0x0][_0x14be49(0x150)](_0x512504=>_0x512504[0x0])[_0x14be49(0x11f)](''));if(_0x59e172){var _0x338ec3=translation1_current[_0x14be49(0x12c)](!![]);translation1['insertBefore'](_0x338ec3,translation1_current),_0x338ec3['classList'][_0x14be49(0x15b)]('fade-out-5s'),_0x338ec3[_0x14be49(0x156)]=()=>{_0x338ec3['remove']();},outlineHelper(translation1_current_under,'');}})[_0x15713e(0x14a)](_0x48e415=>{console['log'](_0x48e415);});const _0x227374=_0x15713e(0xff)+inputLanguage+_0x15713e(0x111)+outputLanguage2+_0x15713e(0x106)+encodeURI(_0x59c05a);fetch(_0x227374)[_0x15713e(0x10a)](_0x574d84=>_0x574d84[_0x15713e(0xfe)]())[_0x15713e(0x10a)](_0x2fb633=>{var _0x51e7a1=_0x15713e;outlineHelper(translation2_current_under,_0x2fb633[0x0][_0x51e7a1(0x150)](_0x37a3ef=>_0x37a3ef[0x0])[_0x51e7a1(0x11f)](''));if(_0x59e172){var _0x46a63d=translation2_current['cloneNode'](!![]);translation2[_0x51e7a1(0x166)](_0x46a63d,translation2_current),_0x46a63d[_0x51e7a1(0x177)][_0x51e7a1(0x15b)](_0x51e7a1(0x102)),_0x46a63d[_0x51e7a1(0x156)]=()=>{var _0x16e1b5=_0x51e7a1;_0x46a63d[_0x16e1b5(0x15c)]();},outlineHelper(translation2_current_under,'');}})['catch'](_0xeb9f83=>{var _0x1b2746=_0x15713e;console[_0x1b2746(0x131)](_0xeb9f83);});},recognition[_0x20ae7a(0x170)]=function(_0x2b8c52){var _0x404599=_0x20ae7a;startBtn[_0x404599(0x14f)]=![],startBtn['textContent']='에러',console[_0x404599(0x131)](_0x2b8c52),transcription_current_under[_0x404599(0x147)]=_0x2b8c52[_0x404599(0x11e)],transcription_current_over['textContent']=_0x2b8c52[_0x404599(0x11e)];},recognition[_0x20ae7a(0x134)]=function(){var _0x360031=_0x20ae7a;console[_0x360031(0x131)]('SpeechRecognition.onstart'),initialized=!![],startBtn['textContent']='정지',inputLanguage=inputLanguageDropdown[_0x360031(0xfd)](_0x360031(0x10e))[_0x360031(0x176)][_0x360031(0x139)],outputLanguage=outputLanguageDropdown[_0x360031(0xfd)]('.selected')[_0x360031(0x176)][_0x360031(0x139)],outputLanguage2=outputLanguageDropdown2['querySelector'](_0x360031(0x10e))[_0x360031(0x176)]['value'];},recognition[_0x20ae7a(0x113)]=function(){var _0x5123d2=_0x20ae7a;console[_0x5123d2(0x131)](_0x5123d2(0x122)),_0x293fe5=_0x3134a7='',_0x4d261d=0x0,initialized=![],startBtn[_0x5123d2(0x147)]='시작',recognition[_0x5123d2(0x100)]();},recognition[_0x20ae7a(0x135)]=function(){var _0x41cadd=_0x20ae7a;console[_0x41cadd(0x131)](_0x41cadd(0x109));},recognition['onaudiostart']=function(){var _0x3bcbaa=_0x20ae7a;console[_0x3bcbaa(0x131)](_0x3bcbaa(0x175));},recognition[_0x20ae7a(0x13a)]=function(){var _0x1ec4d7=_0x20ae7a;console[_0x1ec4d7(0x131)](_0x1ec4d7(0x117));},recognition[_0x20ae7a(0x15d)]=function(){var _0x5e79f0=_0x20ae7a;console[_0x5e79f0(0x131)](_0x5e79f0(0x12f));},recognition['onsoundstart']=function(){var _0x9f52da=_0x20ae7a;console[_0x9f52da(0x131)](_0x9f52da(0x14b));},recognition[_0x20ae7a(0x125)]=function(){var _0x4ef488=_0x20ae7a;console[_0x4ef488(0x131)](_0x4ef488(0x168));},recognition[_0x20ae7a(0x14e)]=function(){var _0x27e882=_0x20ae7a;console[_0x27e882(0x131)]('SpeechRecognition.onspeechstart');};}function startListeningMobile(){var _0x50b3c6=_0x509284;if(initialized){recognition[_0x50b3c6(0x16f)]();return;}var _0x4f88c5=phrases[randomPhrase()];_0x4f88c5=_0x4f88c5[_0x50b3c6(0x13e)]();var _0x485a36=_0x50b3c6(0x12a)+_0x4f88c5+';',_0x44bcfc=new SpeechGrammarList();_0x44bcfc['addFromString'](_0x50b3c6(0x130)),_0x44bcfc[_0x50b3c6(0x141)]('뚜야'),_0x44bcfc[_0x50b3c6(0x141)](_0x485a36,0x1),recognition=new SpeechRecognition(),recognition[_0x50b3c6(0x121)]=inputLanguage,recognition[_0x50b3c6(0x12d)]=!![],recognition[_0x50b3c6(0x10b)]=0xa,recognition[_0x50b3c6(0x16e)]=!![],recognition[_0x50b3c6(0x100)]();var _0x1f527f,_0xc6c4cd,_0x4d5594,_0x4a31fb=0x0,_0x577e39;recognition[_0x50b3c6(0x17b)]=function(_0x4cd2b8){var _0x309b3c=_0x50b3c6,_0x6da3aa=_0x4cd2b8[_0x309b3c(0x133)],_0x454aa0=_0x6da3aa[_0x309b3c(0x13d)];if(0x0!==_0x454aa0){_0x1f527f=_0xc6c4cd='';var _0x3d51ad=_0x4cd2b8[_0x309b3c(0x17c)];_0x577e39=_0x6da3aa[_0x3d51ad]['isFinal'];if(_0x577e39)_0x1f527f=_0x6da3aa[_0x3d51ad][0x0]['transcript'],_0x4d5594=_0x1f527f,_0x4a31fb++;else{for(_0x3d51ad=_0x4a31fb;_0x3d51ad<_0x454aa0;_0x3d51ad++){var _0x3de4af=_0x6da3aa[_0x3d51ad][0x0][_0x309b3c(0x165)];_0xc6c4cd+=_0x3de4af,0.5<_0x6da3aa[_0x3d51ad][0x0]['confidence']&&(_0x1f527f+=_0x3de4af);}_0x4d5594=_0xc6c4cd;}}outlineHelper(transcription_current_under,_0x4d5594);},recognition[_0x50b3c6(0x135)]=function(){var _0x1284f7=_0x50b3c6;if(_0x577e39){var _0x1860c8=transcription_current[_0x1284f7(0x12c)](!![]);transcription['insertBefore'](_0x1860c8,transcription_current),_0x1860c8[_0x1284f7(0x177)]['add'](_0x1284f7(0x102)),_0x1860c8[_0x1284f7(0x156)]=()=>{_0x1860c8['remove']();},outlineHelper(transcription_current_under,'');}const _0x4fb876='https://translate.googleapis.com/translate_a/single?client=gtx&sl='+inputLanguage+_0x1284f7(0x111)+outputLanguage+_0x1284f7(0x106)+encodeURI(_0x4d5594);fetch(_0x4fb876)[_0x1284f7(0x10a)](_0x1bd62d=>_0x1bd62d[_0x1284f7(0xfe)]())['then'](_0x345527=>{var _0x34851c=_0x1284f7;outlineHelper(translation1_current_under,_0x345527[0x0][_0x34851c(0x150)](_0x442aaa=>_0x442aaa[0x0])[_0x34851c(0x11f)](''));if(_0x577e39){var _0x455bb9=translation1_current[_0x34851c(0x12c)](!![]);translation1['insertBefore'](_0x455bb9,translation1_current),_0x455bb9[_0x34851c(0x177)][_0x34851c(0x15b)](_0x34851c(0x102)),_0x455bb9['onanimationend']=()=>{_0x455bb9['remove']();},outlineHelper(translation1_current_under,'');}})['catch'](_0x4cfe94=>{console['log'](_0x4cfe94);});const _0x18113d=_0x1284f7(0xff)+inputLanguage+'&tl='+outputLanguage2+_0x1284f7(0x106)+encodeURI(_0x4d5594);fetch(_0x18113d)[_0x1284f7(0x10a)](_0x6b14a6=>_0x6b14a6['json']())['then'](_0x107b9c=>{var _0x553f7d=_0x1284f7;outlineHelper(translation2_current_under,_0x107b9c[0x0][_0x553f7d(0x150)](_0x2dd02e=>_0x2dd02e[0x0])[_0x553f7d(0x11f)](''));if(_0x577e39){var _0x145755=translation2_current['cloneNode'](!![]);translation2['insertBefore'](_0x145755,translation2_current),_0x145755[_0x553f7d(0x177)]['add'](_0x553f7d(0x102)),_0x145755[_0x553f7d(0x156)]=()=>{var _0x573736=_0x553f7d;_0x145755[_0x573736(0x15c)]();},outlineHelper(translation2_current_under,'');}})['catch'](_0x3069d1=>{console['log'](_0x3069d1);});},recognition[_0x50b3c6(0x14e)]=function(){var _0x522406=_0x50b3c6;console[_0x522406(0x131)](_0x522406(0x11a)),inputLanguage=inputLanguageDropdown['querySelector'](_0x522406(0x10e))[_0x522406(0x176)][_0x522406(0x139)],outputLanguage=outputLanguageDropdown[_0x522406(0xfd)](_0x522406(0x10e))[_0x522406(0x176)]['value'],outputLanguage2=outputLanguageDropdown2['querySelector'](_0x522406(0x10e))[_0x522406(0x176)][_0x522406(0x139)];},recognition[_0x50b3c6(0x170)]=function(_0x34252d){var _0x1c345b=_0x50b3c6;startBtn[_0x1c345b(0x14f)]=![],startBtn[_0x1c345b(0x147)]='에러',console[_0x1c345b(0x131)](_0x34252d),transcription_current_under[_0x1c345b(0x147)]=_0x34252d['message'],transcription_current_over[_0x1c345b(0x147)]=_0x34252d[_0x1c345b(0x11e)];},recognition['onstart']=function(){var _0x22978e=_0x50b3c6;console[_0x22978e(0x131)]('SpeechRecognition.onstart'),initialized=!![],startBtn[_0x22978e(0x147)]='정지';},recognition[_0x50b3c6(0x113)]=function(){var _0x83d94f=_0x50b3c6;console[_0x83d94f(0x131)](_0x83d94f(0x122)),_0x1f527f=_0xc6c4cd='',_0x4a31fb=0x0,initialized=![],startBtn[_0x83d94f(0x147)]='시작',recognition['start']();},recognition[_0x50b3c6(0x15d)]=function(){var _0x20e229=_0x50b3c6;console[_0x20e229(0x131)](_0x20e229(0x12f));},recognition[_0x50b3c6(0x17f)]=function(){var _0x46165c=_0x50b3c6;console['log'](_0x46165c(0x14b));},recognition[_0x50b3c6(0x125)]=function(){var _0x1593bc=_0x50b3c6;console[_0x1593bc(0x131)](_0x1593bc(0x168));},recognition[_0x50b3c6(0x148)]=function(){var _0x277cff=_0x50b3c6;console[_0x277cff(0x131)]('SpeechRecognition.onaudiostart');},recognition[_0x50b3c6(0x13a)]=function(){var _0x3b27a3=_0x50b3c6;console[_0x3b27a3(0x131)](_0x3b27a3(0x117));};}function main(){var _0x5adbc3=_0x509284;isMobile?startBtn[_0x5adbc3(0x15f)]('click',startListeningMobile):startBtn['addEventListener'](_0x5adbc3(0x16a),startListening);}main();
+//Transcription
+//https://developer.mozilla.org/en-US/docs/Web/API/Web_Speech_API
+//Translation
+//https://github.com/Venkateeshh/Js-Language-Translator
+
+//import packages
+var SpeechRecognition = SpeechRecognition || webkitSpeechRecognition;
+var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList;
+var SpeechRecognitionEvent =
+    SpeechRecognitionEvent || webkitSpeechRecognitionEvent;
+
+const isMobile = /iPhone|iPad|iPod|Android/i.test(window.navigator.userAgent);
+const canWakeLock = () => "wakeLock" in navigator;
+let wakelock;
+
+async function lockWakeState() {
+    if (!canWakeLock()) return;
+    try {
+        wakelock = await navigator.wakeLock.request();
+        wakelock.addEventListener("release", () => {
+            console.log("Screen Wake State Locked:", !wakelock.released);
+        });
+        console.log("Screen Wake State Locked:", !wakelock.released);
+    } catch (e) {
+        console.error("Failed to lock wake state with reason:", e.message);
+    }
+}
+lockWakeState();
+
+//initialize dropdowns
+const dropdowns = document.querySelectorAll(".dropdown-container"),
+    inputLanguageDropdown = document.querySelector("#input-language"),
+    outputLanguageDropdown = document.querySelector("#output-language"),
+    outputLanguageDropdown2 = document.querySelector("#output-language2");
+
+function populateDropdown(dropdown, options) {
+    dropdown.querySelector("ul").innerHTML = "";
+    options.forEach((option) => {
+        const li = document.createElement("li");
+        const title = option.name + " (" + option.native + ")";
+        li.innerHTML = title;
+        li.dataset.value = option.code;
+        li.classList.add("option");
+        dropdown.querySelector("ul").appendChild(li);
+    });
+}
+
+populateDropdown(inputLanguageDropdown, languages);
+populateDropdown(outputLanguageDropdown, languages);
+populateDropdown(outputLanguageDropdown2, languages);
+
+dropdowns.forEach((dropdown) => {
+    dropdown.addEventListener("click", () => {
+        dropdown.classList.toggle("active");
+    });
+
+    dropdown.querySelectorAll(".option").forEach((item) => {
+        item.addEventListener("click", () => {
+            //remove active class from current dropdowns
+            dropdown.querySelectorAll(".option").forEach((item) => {
+                item.classList.remove("active");
+            });
+            item.classList.add("active");
+            const selected = dropdown.querySelector(".selected");
+            selected.innerHTML = item.innerHTML;
+            selected.dataset.value = item.dataset.value;
+            localStorage.setItem(dropdown.id, selected.dataset.value);
+        });
+    });
+});
+
+document.addEventListener("click", (e) => {
+    dropdowns.forEach((dropdown) => {
+        if (!dropdown.contains(e.target)) {
+            dropdown.classList.remove("active");
+        }
+    });
+});
+
+//check cached values and simulate clicks
+var inputSaved = localStorage.getItem("input-language");
+console.log('[data-value="' + inputSaved + '"]');
+if (inputSaved) {
+    inputLanguageDropdown
+        .querySelector('[data-value="' + inputSaved + '"]')
+        .dispatchEvent(new Event("click"));
+}
+
+var outputSaved = localStorage.getItem("output-language");
+console.log('[data-value="' + outputSaved + '"]');
+if (outputSaved) {
+    outputLanguageDropdown
+        .querySelector('[data-value="' + outputSaved + '"]')
+        .dispatchEvent(new Event("click"));
+}
+
+var outputSaved2 = localStorage.getItem("output-language2");
+console.log('[data-value="' + outputSaved2 + '"]');
+if (outputSaved2) {
+    outputLanguageDropdown2
+        .querySelector('[data-value="' + outputSaved2 + '"]')
+        .dispatchEvent(new Event("click"));
+}
+
+var inputLanguage =
+    inputLanguageDropdown.querySelector(".selected").dataset.value;
+var outputLanguage =
+    outputLanguageDropdown.querySelector(".selected").dataset.value;
+var outputLanguage2 =
+    outputLanguageDropdown2.querySelector(".selected").dataset.value;
+var content = document.querySelector(".options-wrapper");
+var coll = document.querySelector(".collapse");
+coll.addEventListener("click", function () {
+    this.classList.toggle("active");
+    if (content.style.display == "block") {
+        content.style.display = "none";
+        coll.innerHTML = "보이기";
+    } else {
+        content.style.display = "block";
+        coll.innerHTML = "숨기기";
+    }
+});
+
+//initialize elements
+var transcription = document.querySelector(".transcription");
+var transcription_current = transcription.querySelector(".current");
+var transcription_current_under = transcription_current.querySelector(".under");
+var transcription_current_over = transcription_current.querySelector(".over");
+
+var translation1 = document.querySelector(".translation1");
+var translation1_current = translation1.querySelector(".current");
+var translation1_current_under = translation1_current.querySelector(".under");
+//var translation1_current_over = translation1_current.querySelector(".over");
+
+var translation2 = document.querySelector(".translation2");
+var translation2_current = translation2.querySelector(".current");
+var translation2_current_under = translation2_current.querySelector(".under");
+//var translation2_current_over = translation2_current.querySelector(".over");
+
+var startBtn = document.querySelector(".listenButton");
+//var greenScreen = document.querySelector(".greenScreen");
+
+var recognition;
+var initialized = false;
+
+//initialize sliders
+var slider1 = document.querySelector("#slider1");
+if (localStorage.getItem(slider1.id)) {
+    slider1.value = localStorage.getItem(slider1.id);
+}
+slider1.addEventListener(
+    "input",
+    function () {
+        document.documentElement.style.setProperty(
+            "--translation-font-size",
+            this.value + "px"
+        );
+        this.nextElementSibling.textContent = this.value + "px";
+        localStorage.setItem(this.id, this.value);
+    },
+    false
+);
+slider1.dispatchEvent(new Event("input"));
+
+var slider2 = document.querySelector("#slider2");
+if (localStorage.getItem(slider2.id)) {
+    slider2.value = localStorage.getItem(slider2.id);
+}
+slider2.addEventListener(
+    "input",
+    function () {
+        document.documentElement.style.setProperty(
+            "--translation-font-weight",
+            this.value
+        );
+        this.nextElementSibling.textContent = this.value;
+        localStorage.setItem(this.id, this.value);
+    },
+    false
+);
+slider2.dispatchEvent(new Event("input"));
+
+var slider3 = document.querySelector("#slider3");
+if (localStorage.getItem(slider3.id)) {
+    slider3.value = localStorage.getItem(slider3.id);
+}
+slider3.addEventListener(
+    "input",
+    function () {
+        document.documentElement.style.setProperty(
+            "--translation-outline-thick",
+            this.value + "px"
+        );
+        this.nextElementSibling.textContent = this.value + "px";
+        localStorage.setItem(this.id, this.value);
+    },
+    false
+);
+slider3.dispatchEvent(new Event("input"));
+
+var slider4 = document.querySelector("#slider4");
+if (localStorage.getItem(slider4.id)) {
+    slider4.value = localStorage.getItem(slider4.id);
+}
+slider4.addEventListener(
+    "input",
+    function () {
+        localStorage.setItem(this.id, this.value);
+        if (this.value == 0) {
+            document.documentElement.style.setProperty(
+                "--translation-align",
+                "left"
+            );
+            this.nextElementSibling.textContent = "left";
+        } else if (this.value == 1) {
+            document.documentElement.style.setProperty(
+                "--translation-align",
+                "center"
+            );
+            this.nextElementSibling.textContent = "center";
+        } else if (this.value == 2) {
+            document.documentElement.style.setProperty(
+                "--translation-align",
+                "right"
+            );
+            this.nextElementSibling.textContent = "right";
+        }
+    },
+    false
+);
+slider4.dispatchEvent(new Event("input"));
+
+var slider5 = document.querySelector("#slider5");
+if (localStorage.getItem(slider5.id)) {
+    slider5.value = localStorage.getItem(slider5.id);
+}
+slider5.addEventListener(
+    "input",
+    function () {
+        document.documentElement.style.setProperty(
+            "--history-fade-time",
+            this.value + "s"
+        );
+        this.nextElementSibling.textContent = this.value + "s";
+        localStorage.setItem(this.id, this.value);
+    },
+    false
+);
+slider5.dispatchEvent(new Event("input"));
+
+var slider6 = document.querySelector("#slider6");
+if (localStorage.getItem(slider6.id)) {
+    slider6.value = localStorage.getItem(slider6.id);
+}
+slider6.addEventListener(
+    "input",
+    function () {
+        if (this.value == 0) {
+            this.nextElementSibling.textContent = "즉시";
+        } else {
+            this.nextElementSibling.textContent = this.value + " 회당";
+        }
+        localStorage.setItem(this.id, this.value);
+    },
+    false
+);
+slider6.dispatchEvent(new Event("input"));
+
+var phrases = [
+    "I love to sing because it's fun",
+    "where are you going",
+    "can I call you tomorrow",
+    "why did you talk while I was talking",
+    "she enjoys reading books and playing games",
+    "where are you going",
+    "have a great day",
+    "she sells seashells on the seashore",
+];
+
+function randomPhrase() {
+    var number = Math.floor(Math.random() * phrases.length);
+    return number;
+}
+
+function outlineHelper(element, text) {
+    element.textContent = text;
+    element.nextElementSibling.textContent = text;
+}
+function startListening() {
+    if (!initialized) {
+        var phrase = phrases[randomPhrase()];
+        // To ensure case consistency while checking with the returned output text
+        phrase = phrase.toLowerCase();
+
+        var grammar =
+            "#JSGF V1.0; grammar phrase; public <phrase> = " + phrase + ";";
+        var speechRecognitionList = new SpeechGrammarList();
+        speechRecognitionList.addFromString("치지직");
+        speechRecognitionList.addFromString("뚜야");
+        speechRecognitionList.addFromString(grammar, 1);
+
+        recognition = new SpeechRecognition();
+        //recognition.grammars = speechRecognitionList;
+        recognition.lang = inputLanguage;
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 0;
+        recognition.continuous = true;
+        recognition.start();
+
+        var spokenWords;
+        var interimWords;
+        var inputText;
+        var talkCount = 0;
+        var isFinal;
+        var translateCycle = 0;
+    } else {
+        recognition.abort();
+        return;
+    }
+    recognition.onresult = function (event) {
+        var translateThres = slider6.value;
+        //recognition work
+        var results = event.results;
+        var numberOfResults = results.length;
+        if (0 !== numberOfResults) {
+            spokenWords = interimWords = "";
+            var index = event.resultIndex;
+            isFinal = results[index].isFinal;
+            if (isFinal) {
+                spokenWords = results[index][0].transcript;
+                inputText = spokenWords;
+                talkCount++;
+            } else {
+                for (index = talkCount; index < numberOfResults; index++) {
+                    var transcript = results[index][0].transcript;
+                    interimWords += transcript;
+                    if (0.5 < results[index][0].confidence) {
+                        spokenWords += transcript;
+                    }
+                }
+                inputText = interimWords;
+            }
+        }
+        //transcription
+        outlineHelper(transcription_current_under, inputText);
+        if (isFinal) {
+            var newLine = transcription_current.cloneNode(true);
+            transcription.insertBefore(newLine, transcription_current);
+            newLine.classList.add("fade-out-5s");
+            newLine.onanimationend = () => {
+                newLine.remove();
+            };
+            outlineHelper(transcription_current_under, " ");
+        }
+        if (translateCycle < translateThres && !isFinal) {
+            translateCycle += 1;
+            return;
+        } else {
+            translateCycle = 0;
+        }
+        //translation1
+        const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
+            inputText
+        )}`;
+        if (isFinal) {
+            fetch(url1)
+                .then((response) => response.json())
+                .then((json) => {
+                    outlineHelper(
+                        translation1_current_under,
+                        json[0].map((item) => item[0]).join("")
+                    );
+                    var newLine1 = translation1_current.cloneNode(true);
+                    translation1.insertBefore(newLine1, translation1_current);
+                    newLine1.classList.add("fade-out-5s");
+                    newLine1.onanimationend = () => {
+                        newLine1.remove();
+                    };
+                    outlineHelper(translation1_current_under, " ");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            fetch(url1)
+                .then((response) => response.json())
+                .then((json) => {
+                    outlineHelper(
+                        translation1_current_under,
+                        json[0].map((item) => item[0]).join("")
+                    );
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
+        //translation2
+        const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
+            inputText
+        )}`;
+        if (isFinal) {
+            fetch(url2)
+                .then((response) => response.json())
+                .then((json) => {
+                    outlineHelper(
+                        translation2_current_under,
+                        json[0].map((item) => item[0]).join("")
+                    );
+                    var newLine2 = translation2_current.cloneNode(true);
+                    translation2.insertBefore(newLine2, translation2_current);
+                    newLine2.classList.add("fade-out-5s");
+                    newLine2.onanimationend = () => {
+                        newLine2.remove();
+                    };
+                    outlineHelper(translation2_current_under, " ");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            fetch(url2)
+                .then((response) => response.json())
+                .then((json) => {
+                    outlineHelper(
+                        translation2_current_under,
+                        json[0].map((item) => item[0]).join("")
+                    );
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    };
+    recognition.onerror = function (event) {
+        startBtn.disabled = false;
+        startBtn.textContent = "에러";
+        console.log(event);
+        transcription_current_under.textContent = event.message;
+        transcription_current_over.textContent = event.message;
+    };
+    recognition.onstart = function () {
+        //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
+        console.log("SpeechRecognition.onstart");
+        initialized = true;
+        startBtn.textContent = "정지";
+        inputLanguage =
+            inputLanguageDropdown.querySelector(".selected").dataset.value;
+        outputLanguage =
+            outputLanguageDropdown.querySelector(".selected").dataset.value;
+        outputLanguage2 =
+            outputLanguageDropdown2.querySelector(".selected").dataset.value;
+    };
+    recognition.onend = function () {
+        //Fired when the speech recognition service has disconnected.
+        console.log("SpeechRecognition.onend");
+        spokenWords = interimWords = "";
+        talkCount = 0;
+        initialized = false;
+        startBtn.textContent = "시작";
+        recognition.start();
+    };
+    recognition.onspeechend = function () {
+        console.log("SpeechRecognition.onspeechend");
+    };
+    recognition.onaudiostart = function () {
+        //Fired when the user agent has started to capture audio.
+        console.log("SpeechRecognition.onaudiostart");
+    };
+    recognition.onaudioend = function () {
+        //Fired when the user agent has finished capturing audio.
+        console.log("SpeechRecognition.onaudioend");
+    };
+    recognition.onnomatch = function () {
+        //Fired when the speech recognition service returns a final result with no significant recognition. This may involve some degree of recognition, which doesn't meet or exceed the confidence threshold.
+        console.log("SpeechRecognition.onnomatch");
+    };
+    recognition.onsoundstart = function () {
+        //Fired when any sound — recognisable speech or not — has been detected.
+        console.log("SpeechRecognition.onsoundstart");
+    };
+    recognition.onsoundend = function () {
+        //Fired when any sound — recognisable speech or not — has stopped being detected.
+        console.log("SpeechRecognition.onsoundend");
+    };
+    recognition.onspeechstart = function () {
+        //Fired when sound that is recognised by the speech recognition service as speech has been detected.
+        console.log("SpeechRecognition.onspeechstart");
+    };
+}
+//Main
+function main() {
+    if (isMobile) {
+        startBtn.addEventListener("click", startListening);
+    } else {
+        startBtn.addEventListener("click", startListening);
+    }
+}
+
+main();

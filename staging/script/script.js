@@ -287,36 +287,36 @@ function outlineHelper(element, text) {
     element.nextElementSibling.textContent = text;
 }
 function startListening() {
-    if (initialized) {
+    if (!initialized) {
+        var phrase = phrases[randomPhrase()];
+        // To ensure case consistency while checking with the returned output text
+        phrase = phrase.toLowerCase();
+
+        var grammar =
+            "#JSGF V1.0; grammar phrase; public <phrase> = " + phrase + ";";
+        var speechRecognitionList = new SpeechGrammarList();
+        speechRecognitionList.addFromString("치지직");
+        speechRecognitionList.addFromString("뚜야");
+        speechRecognitionList.addFromString(grammar, 1);
+
+        recognition = new SpeechRecognition();
+        //recognition.grammars = speechRecognitionList;
+        recognition.lang = inputLanguage;
+        recognition.interimResults = true;
+        recognition.maxAlternatives = 0;
+        recognition.continuous = false;
+        recognition.start();
+
+        var spokenWords;
+        var interimWords;
+        var inputText;
+        var talkCount = 0;
+        var isFinal;
+        var translateCycle = 0;
+    } else {
         recognition.abort();
         return;
     }
-    var phrase = phrases[randomPhrase()];
-    // To ensure case consistency while checking with the returned output text
-    phrase = phrase.toLowerCase();
-
-    var grammar =
-        "#JSGF V1.0; grammar phrase; public <phrase> = " + phrase + ";";
-    var speechRecognitionList = new SpeechGrammarList();
-    speechRecognitionList.addFromString("치지직");
-    speechRecognitionList.addFromString("뚜야");
-    speechRecognitionList.addFromString(grammar, 1);
-
-    recognition = new SpeechRecognition();
-    //recognition.grammars = speechRecognitionList;
-    recognition.lang = inputLanguage;
-    recognition.interimResults = true;
-    recognition.maxAlternatives = 0;
-    recognition.continuous = false;
-    recognition.start();
-
-    var spokenWords;
-    var interimWords;
-    var inputText;
-    var talkCount = 0;
-    var isFinal;
-    var translateCycle = 0;
-
     recognition.onresult = function (event) {
         var translateThres = slider6.value;
         //recognition work
@@ -341,10 +341,17 @@ function startListening() {
                 inputText = interimWords;
             }
         }
-        console.log(isFinal);
         //transcription
         outlineHelper(transcription_current_under, inputText);
-
+        if (isFinal) {
+            var newLine = transcription_current.cloneNode(true);
+            transcription.insertBefore(newLine, transcription_current);
+            newLine.classList.add("fade-out-5s");
+            newLine.onanimationend = () => {
+                newLine.remove();
+            };
+            outlineHelper(transcription_current_under, " ");
+        }
         if (translateCycle < translateThres && !isFinal) {
             translateCycle += 1;
             return;
@@ -355,59 +362,74 @@ function startListening() {
         const url1 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage}&dt=t&q=${encodeURI(
             inputText
         )}`;
-        fetch(url1)
-            .then((response) => response.json())
-            .then((json) => {
-                outlineHelper(
-                    translation1_current_under,
-                    json[0].map((item) => item[0]).join("")
-                );
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+        if (isFinal) {
+            fetch(url1)
+                .then((response) => response.json())
+                .then((json) => {
+                    outlineHelper(
+                        translation1_current_under,
+                        json[0].map((item) => item[0]).join("")
+                    );
+                    var newLine1 = translation1_current.cloneNode(true);
+                    translation1.insertBefore(newLine1, translation1_current);
+                    newLine1.classList.add("fade-out-5s");
+                    newLine1.onanimationend = () => {
+                        newLine1.remove();
+                    };
+                    outlineHelper(translation1_current_under, " ");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            fetch(url1)
+                .then((response) => response.json())
+                .then((json) => {
+                    outlineHelper(
+                        translation1_current_under,
+                        json[0].map((item) => item[0]).join("")
+                    );
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+
         //translation2
         const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
             inputText
         )}`;
-        fetch(url2)
-            .then((response) => response.json())
-            .then((json) => {
-                outlineHelper(
-                    translation2_current_under,
-                    json[0].map((item) => item[0]).join("")
-                );
-            })
-            .catch((error) => {
-                console.log(error);
-            });
         if (isFinal) {
-            var newLine = transcription_current.cloneNode(true);
-            console.log("transcription_current newline");
-            transcription.insertBefore(newLine, transcription_current);
-            newLine.classList.add("fade-out-5s");
-            newLine.onanimationend = () => {
-                newLine.remove();
-            };
-            outlineHelper(transcription_current_under, " ");
-
-            var newLine1 = translation1_current.cloneNode(true);
-            console.log("translation1_current newline");
-            translation1.insertBefore(newLine1, translation1_current);
-            newLine1.classList.add("fade-out-5s");
-            newLine1.onanimationend = () => {
-                newLine1.remove();
-            };
-            outlineHelper(translation1_current_under, " ");
-
-            var newLine2 = translation2_current.cloneNode(true);
-            console.log("translation2_current newline");
-            translation2.insertBefore(newLine2, translation2_current);
-            newLine2.classList.add("fade-out-5s");
-            newLine2.onanimationend = () => {
-                newLine2.remove();
-            };
-            outlineHelper(translation2_current_under, " ");
+            fetch(url2)
+                .then((response) => response.json())
+                .then((json) => {
+                    outlineHelper(
+                        translation2_current_under,
+                        json[0].map((item) => item[0]).join("")
+                    );
+                    var newLine2 = translation2_current.cloneNode(true);
+                    translation2.insertBefore(newLine2, translation2_current);
+                    newLine2.classList.add("fade-out-5s");
+                    newLine2.onanimationend = () => {
+                        newLine2.remove();
+                    };
+                    outlineHelper(translation2_current_under, " ");
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        } else {
+            fetch(url2)
+                .then((response) => response.json())
+                .then((json) => {
+                    outlineHelper(
+                        translation2_current_under,
+                        json[0].map((item) => item[0]).join("")
+                    );
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         }
     };
     recognition.onerror = function (event) {
@@ -445,26 +467,26 @@ function startListening() {
         //Fired when the user agent has started to capture audio.
         console.log("SpeechRecognition.onaudiostart");
     };
-    recognition.onaudioend = function () {
-        //Fired when the user agent has finished capturing audio.
-        console.log("SpeechRecognition.onaudioend");
-    };
-    recognition.onnomatch = function () {
-        //Fired when the speech recognition service returns a final result with no significant recognition. This may involve some degree of recognition, which doesn't meet or exceed the confidence threshold.
-        console.log("SpeechRecognition.onnomatch");
-    };
-    recognition.onsoundstart = function () {
-        //Fired when any sound — recognisable speech or not — has been detected.
-        console.log("SpeechRecognition.onsoundstart");
-    };
-    recognition.onsoundend = function () {
-        //Fired when any sound — recognisable speech or not — has stopped being detected.
-        console.log("SpeechRecognition.onsoundend");
-    };
-    recognition.onspeechstart = function () {
-        //Fired when sound that is recognised by the speech recognition service as speech has been detected.
-        console.log("SpeechRecognition.onspeechstart");
-    };
+    //recognition.onaudioend = function () {
+    //Fired when the user agent has finished capturing audio.
+    //    console.log("SpeechRecognition.onaudioend");
+    //};
+    //recognition.onnomatch = function () {
+    //Fired when the speech recognition service returns a final result with no significant recognition. This may involve some degree of recognition, which doesn't meet or exceed the confidence threshold.
+    //    console.log("SpeechRecognition.onnomatch");
+    //};
+    // recognition.onsoundstart = function () {
+    //Fired when any sound — recognisable speech or not — has been detected.
+    //    console.log("SpeechRecognition.onsoundstart");
+    //};
+    //recognition.onsoundend = function () {
+    //Fired when any sound — recognisable speech or not — has stopped being detected.
+    //    console.log("SpeechRecognition.onsoundend");
+    //};
+    // recognition.onspeechstart = function () {
+    //Fired when sound that is recognised by the speech recognition service as speech has been detected.
+    //    console.log("SpeechRecognition.onspeechstart");
+    //};
 }
 //Main
 function main() {
