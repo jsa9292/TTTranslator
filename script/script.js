@@ -378,6 +378,15 @@ function startListening() {
                     translation2_current_under,
                     json[0].map((item) => item[0]).join("")
                 );
+                if (isFinal) {
+                    var newLine2 = translation2_current.cloneNode(true);
+                    translation2.insertBefore(newLine2, translation2_current);
+                    newLine2.classList.add("fade-out-5s");
+                    newLine2.onanimationend = () => {
+                        newLine2.remove();
+                    };
+                    outlineHelper(translation2_current_under, " ");
+                }
             })
             .catch((error) => {
                 console.log(error);
@@ -420,9 +429,7 @@ function startListening() {
         newLine.onanimationend = () => {
             newLine.remove();
         };
-        console.log("transcription added");
         outlineHelper(transcription_current_under, " ");
-        console.log("transcription cleared");
 
         var newLine1 = translation1_current.cloneNode(true);
         translation1.insertBefore(newLine1, translation1_current);
@@ -430,19 +437,7 @@ function startListening() {
         newLine1.onanimationend = () => {
             newLine1.remove();
         };
-        console.log("translation1 added");
         outlineHelper(translation1_current_under, " ");
-        console.log("translation1 cleared");
-
-        var newLine2 = translation2_current.cloneNode(true);
-        translation2.insertBefore(newLine2, translation2_current);
-        newLine2.classList.add("fade-out-5s");
-        newLine2.onanimationend = () => {
-            newLine2.remove();
-        };
-        console.log("translation2 added");
-        outlineHelper(translation2_current_under, " ");
-        console.log("translation2 cleared");
     };
     recognition.onaudiostart = function () {
         //Fired when the user agent has started to capture audio.
