@@ -429,6 +429,7 @@ function startListening() {
             newLine1.remove();
         };
         outlineHelper(translation1_current_under, "");
+        console.log("translation1 added");
 
         var newLine2 = translation2_current.cloneNode(true);
         translation2.insertBefore(newLine2, translation2_current);
@@ -437,6 +438,7 @@ function startListening() {
             newLine2.remove();
         };
         outlineHelper(translation2_current_under, "");
+        console.log("translation2 added");
     };
     recognition.onaudiostart = function () {
         //Fired when the user agent has started to capture audio.
