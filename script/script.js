@@ -379,8 +379,8 @@ function startListening() {
             })
             .finally(() => {
                 if (isFinal) {
-                    var newLine1 = translation1_current.cloneNode(true););
-            console.log("translation1_current newline");
+                    var newLine1 = translation1_current.cloneNode(true);
+                    console.log("translation1_current newline");
                     translation1.insertBefore(newLine1, translation1_current);
                     newLine1.classList.add("fade-out-5s");
                     newLine1.onanimationend = () => {
@@ -406,8 +406,8 @@ function startListening() {
             })
             .finally(() => {
                 if (isFinal) {
-                    var newLine2 = translation2_current.cloneNode(true););
-            console.log("translation2_current newline");
+                    var newLine2 = translation2_current.cloneNode(true);
+                    console.log("translation2_current newline");
                     translation2.insertBefore(newLine2, translation2_current);
                     newLine2.classList.add("fade-out-5s");
                     newLine2.onanimationend = () => {
