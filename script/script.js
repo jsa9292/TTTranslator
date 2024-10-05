@@ -344,6 +344,7 @@ function startListening() {
                 inputText = interimWords;
             }
         }
+        console.log(isFinal);
         //transcription
         outlineHelper(transcription_current_under, inputText);
         if (isFinal) {
