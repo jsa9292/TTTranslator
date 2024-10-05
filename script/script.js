@@ -346,15 +346,6 @@ function startListening() {
         }
         //transcription
         outlineHelper(transcription_current_under, inputText);
-        if (isFinal) {
-            var newLine = transcription_current.cloneNode(true);
-            transcription.insertBefore(newLine, transcription_current);
-            newLine.classList.add("fade-out-5s");
-            newLine.onanimationend = () => {
-                newLine.remove();
-            };
-            outlineHelper(transcription_current_under, "");
-        }
         if (translateCycle < translateThres && !isFinal) {
             translateCycle += 1;
             return;
@@ -372,16 +363,6 @@ function startListening() {
                     translation1_current_under,
                     json[0].map((item) => item[0]).join("")
                 );
-                if (isFinal) {
-                    return;
-                    var newLine = translation1_current.cloneNode(true);
-                    translation1.insertBefore(newLine, translation1_current);
-                    newLine.classList.add("fade-out-5s");
-                    newLine.onanimationend = () => {
-                        newLine.remove();
-                    };
-                    outlineHelper(translation1_current_under, "");
-                }
             })
             .catch((error) => {
                 console.log(error);
@@ -397,16 +378,6 @@ function startListening() {
                     translation2_current_under,
                     json[0].map((item) => item[0]).join("")
                 );
-                if (isFinal) {
-                    return;
-                    var newLine = translation2_current.cloneNode(true);
-                    translation2.insertBefore(newLine, translation2_current);
-                    newLine.classList.add("fade-out-5s");
-                    newLine.onanimationend = () => {
-                        newLine.remove();
-                    };
-                    outlineHelper(translation2_current_under, "");
-                }
             })
             .catch((error) => {
                 console.log(error);
@@ -442,22 +413,30 @@ function startListening() {
     };
     recognition.onspeechend = function () {
         console.log("SpeechRecognition.onspeechend");
-        
-                    var newLine = translation1_current.cloneNode(true);
-                    translation1.insertBefore(newLine, translation1_current);
-                    newLine.classList.add("fade-out-5s");
-                    newLine.onanimationend = () => {
-                        newLine.remove();
-                    };
-                    outlineHelper(translation1_current_under, "");
-                    
-                    var newLine2 = translation2_current.cloneNode(true);
-                    translation2.insertBefore(newLine2, translation2_current);
-                    newLine2.classList.add("fade-out-5s");
-                    newLine2.onanimationend = () => {
-                        newLine2.remove();
-                    };
-                    outlineHelper(translation2_current_under, "");
+
+        var newLine = transcription_current.cloneNode(true);
+        transcription.insertBefore(newLine, transcription_current);
+        newLine.classList.add("fade-out-5s");
+        newLine.onanimationend = () => {
+            newLine.remove();
+        };
+        outlineHelper(transcription_current_under, "");
+
+        var newLine1 = translation1_current.cloneNode(true);
+        translation1.insertBefore(newLine1, translation1_current);
+        newLine1.classList.add("fade-out-5s");
+        newLine1.onanimationend = () => {
+            newLine1.remove();
+        };
+        outlineHelper(translation1_current_under, "");
+
+        var newLine2 = translation2_current.cloneNode(true);
+        translation2.insertBefore(newLine2, translation2_current);
+        newLine2.classList.add("fade-out-5s");
+        newLine2.onanimationend = () => {
+            newLine2.remove();
+        };
+        outlineHelper(translation2_current_under, "");
     };
     recognition.onaudiostart = function () {
         //Fired when the user agent has started to capture audio.
