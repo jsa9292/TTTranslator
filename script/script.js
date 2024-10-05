@@ -355,6 +355,8 @@ function startListening() {
             };
             outlineHelper(transcription_current_under, " ");
         }
+
+
         if (translateCycle < translateThres && !isFinal) {
             translateCycle += 1;
             return;
@@ -373,7 +375,10 @@ function startListening() {
                     json[0].map((item) => item[0]).join("")
                 );
             })
-            .then(() => {
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
                 if (isFinal) {
                     var newLine1 = translation1_current.cloneNode(true);
                     translation1.insertBefore(newLine1, translation1_current);
@@ -383,9 +388,6 @@ function startListening() {
                     };
                     outlineHelper(translation1_current_under, " ");
                 }
-            })
-            .catch((error) => {
-                console.log(error);
             });
         //translation2
         const url2 = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${inputLanguage}&tl=${outputLanguage2}&dt=t&q=${encodeURI(
@@ -399,7 +401,10 @@ function startListening() {
                     json[0].map((item) => item[0]).join("")
                 );
             })
-            .then(() => {
+            .catch((error) => {
+                console.log(error);
+            })
+            .finally(() => {
                 if (isFinal) {
                     var newLine2 = translation2_current.cloneNode(true);
                     translation2.insertBefore(newLine2, translation2_current);
@@ -409,9 +414,6 @@ function startListening() {
                     };
                     outlineHelper(translation2_current_under, " ");
                 }
-            })
-            .catch((error) => {
-                console.log(error);
             });
     };
     recognition.onerror = function (event) {
