@@ -421,7 +421,7 @@ function startListening() {
             newLine.remove();
         };
         console.log("transcription added");
-        outlineHelper(transcription_current_under, "");
+        outlineHelper(transcription_current_under, " ");
         console.log("transcription cleared");
 
         var newLine1 = translation1_current.cloneNode(true);
@@ -431,7 +431,7 @@ function startListening() {
             newLine1.remove();
         };
         console.log("translation1 added");
-        outlineHelper(translation1_current_under, "");
+        outlineHelper(translation1_current_under, " ");
         console.log("translation1 cleared");
 
         var newLine2 = translation2_current.cloneNode(true);
@@ -441,7 +441,7 @@ function startListening() {
             newLine2.remove();
         };
         console.log("translation2 added");
-        outlineHelper(translation2_current_under, "");
+        outlineHelper(translation2_current_under, " ");
         console.log("translation2 cleared");
     };
     recognition.onaudiostart = function () {
