@@ -398,7 +398,7 @@ function startListening() {
         recognition.lang = inputLanguage;
         recognition.interimResults = true;
         recognition.maxAlternatives = 0;
-        recognition.continuous = continuousCheck.value;
+        //recognition.continuous = continuousCheck.value;
         //var phrase = phrases[randomPhrase()];
         // To ensure case consistency while checking with the returned output text
         //phrase = phrase.toLowerCase();
@@ -542,7 +542,6 @@ function startListening() {
         }
     };
     recognition.onerror = function (event) {
-        startBtn.disabled = false;
         console.log(event);
         transcription_current_under.textContent = event.message;
         transcription_current_over.textContent = event.message;
