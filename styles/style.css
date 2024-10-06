@@ -5,12 +5,17 @@
   --text-color: #111116;
   --light-text-color: #cdccd1;
   --primary-text-color: #fff;
+  --input-color: #fff;
+  --output-color1: #fff;
+  --output-color2: #fff;
+  --screen-color: rgb(0,255,0);
   --translation-color: #fff;
   --translation-outline-thick: 1px;
   --translation-font-size: 25px;
   --translation-font-weight: 600;
   --translation-align: 'left';
   --history-fade-time: 5s;
+  --outline-color:#000000;
 }
 
 ::-webkit-scrollbar {
@@ -58,10 +63,10 @@
     width:100%;
 }
 
-.listenButton{
+.listenButton, .stopButton {
   height: 50px;
   align-items: right;
-  margin:50px;
+  margin:10px;
   padding: 0 20px;
   border-radius: 30px;
   border: none;
@@ -69,13 +74,12 @@
   color: var(--text-color);
   cursor: pointer;
   background-color: var(--light-bg-color);
-  display:block;
   text-align:center; 
   width: 100px; 
   font-weight:700;
 }
 
-.listenButton:hover{
+.listenButton:hover, .stopButton:hover{
   background-color: var(--primary-color);
 
 }
@@ -125,7 +129,7 @@
     font-family: sans-serif;
     font-size: 15px;
     margin: 50px;
-    text-align:right;
+    text-align:left;
 }
 .slider{
     display:flex;
@@ -140,7 +144,6 @@
   font-size: 12px;
   font-weight: 600;
   color: #555;
-  top: -2px;
   position: relative;
 }
 .greenScreen{
@@ -161,6 +164,15 @@
         to(rgba(0,0,0,0))
     );
 }
+.transcription{
+    color: var(--input-color);
+}
+.translation1{
+    color: var(--output-color1);
+}
+.translation2{
+    color: var(--output-color2);
+}
 .textContainer{
     display:flex; 
     flex-direction:column;
@@ -180,10 +192,10 @@
   align-self: flex-end;
   
   -webkit-text-stroke-width: var(--translation-outline-thick);
-  -webkit-text-fill-color: black;
-  -webkit-text-stroke-color: black;
+  -webkit-text-fill-color: var(--outline-color);
+  -webkit-text-stroke-color: var(--outline-color);
   position: relative;
-  color: var(--translation-color);
+  color: var(--outline-color);
   
     -webkit-touch-callout: none;
     -webkit-user-select: none;
@@ -201,18 +213,17 @@
     padding:3px;
     font-size: var(--translation-font-size);
     font-weight: var(--translation-font-weight);
-    color: white;
     text-align: var(--translation-align);
     -webkit-text-stroke-width: 0px;
-    -webkit-text-fill-color: white;
 }
+
 
 body {
   min-height: 100vh;
   display: flex;
   align-items: center;
   color: var(--text-color);
-  background-color:  rgba(0, 255, 0);
+  background-color: var(--screen-color);
   flex-direction: column;
 
 }
@@ -231,6 +242,8 @@ body.dark {
   display: flex;
   gap: 10px;
 }
+
+
 
 .container .card {
   flex: 1;

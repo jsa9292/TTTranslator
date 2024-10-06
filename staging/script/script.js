@@ -142,6 +142,10 @@ var stopBtn = document.querySelector(".stopButton");
 //var greenScreen = document.querySelector(".greenScreen");
 
 var continuousCheck = document.querySelector("#continous-check");
+continuousCheck.addEventListener("change", () => {
+    localStorage.setItem("--continous-check", continuousCheck.checked);
+});
+continuousCheck.checked = localStorage.getItem("--continous-check");
 
 var recognition;
 var initialized = false;
@@ -398,7 +402,7 @@ function startListening() {
         recognition.lang = inputLanguage;
         recognition.interimResults = true;
         recognition.maxAlternatives = 0;
-        //recognition.continuous = continuousCheck.value;
+        recognition.continuous = continuousCheck.checked;
         //var phrase = phrases[randomPhrase()];
         // To ensure case consistency while checking with the returned output text
         //phrase = phrase.toLowerCase();
