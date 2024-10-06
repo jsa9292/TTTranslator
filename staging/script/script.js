@@ -141,6 +141,8 @@ var startBtn = document.querySelector(".listenButton");
 var stopBtn = document.querySelector(".stopButton");
 //var greenScreen = document.querySelector(".greenScreen");
 
+var continuousCheck = document.querySelector("#continous-check");
+
 var recognition;
 var initialized = false;
 var stopListening = false;
@@ -396,7 +398,7 @@ function startListening() {
         recognition.lang = inputLanguage;
         recognition.interimResults = true;
         recognition.maxAlternatives = 0;
-        recognition.continuous = false;
+        recognition.continuous = continuousCheck.value;
         //var phrase = phrases[randomPhrase()];
         // To ensure case consistency while checking with the returned output text
         //phrase = phrase.toLowerCase();
@@ -422,6 +424,7 @@ function startListening() {
         var numberOfResults;
     } else {
         recognition.abort();
+        console.log("already initialized");
         return;
     }
     recognition.onresult = function (event) {
@@ -599,13 +602,6 @@ function endListening() {
     recognition.abort();
     stopListening = true;
 }
-if (isMobile) {
-    startBtn.addEventListener("click", startListening);
-} else {
-    startBtn.addEventListener("click", startListening);
-}
-stopBtn.addEventListener("click", endListening);
-//Main
-function main() {}
 
-main();
+startBtn.addEventListener("click", startListening);
+stopBtn.addEventListener("click", endListening);
