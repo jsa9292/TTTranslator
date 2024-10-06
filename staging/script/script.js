@@ -138,10 +138,113 @@ var translation2_current_under = translation2_current.querySelector(".under");
 //var translation2_current_over = translation2_current.querySelector(".over");
 
 var startBtn = document.querySelector(".listenButton");
+var stopBtn = document.querySelector(".stopButton");
 //var greenScreen = document.querySelector(".greenScreen");
 
 var recognition;
 var initialized = false;
+var stopListening = false;
+
+//Coloris Setup
+Coloris.setInstance("#input-color", {
+    theme: "polaroid",
+    themeMode: "light",
+    alpha: true,
+    format: "rgb",
+    formatToggle: true,
+    closeButton: true,
+    onChange: (color, input) => {
+        localStorage.setItem("--input-color", color);
+        document.documentElement.style.setProperty("--input-color", color);
+    },
+});
+var inputColor = document.querySelector("#input-color");
+inputColor.value = localStorage.getItem("--input-color");
+inputColor.dispatchEvent(new Event("input", { bubbles: true }));
+document.documentElement.style.setProperty(
+    "--input-color",
+    localStorage.getItem("--input-color")
+);
+
+Coloris.setInstance("#output-color1", {
+    theme: "polaroid",
+    themeMode: "light",
+    alpha: true,
+    format: "rgb",
+    formatToggle: true,
+    closeButton: true,
+    onChange: (color, input) => {
+        localStorage.setItem("--output-color1", color);
+        document.documentElement.style.setProperty("--output-color1", color);
+    },
+});
+var outputColor1 = document.querySelector("#output-color1");
+outputColor1.value = localStorage.getItem("--output-color1");
+outputColor1.dispatchEvent(new Event("input", { bubbles: true }));
+document.documentElement.style.setProperty(
+    "--output-color1",
+    localStorage.getItem("--output-color1")
+);
+
+Coloris.setInstance("#output-color2", {
+    theme: "polaroid",
+    themeMode: "light",
+    alpha: true,
+    format: "rgb",
+    formatToggle: true,
+    closeButton: true,
+    onChange: (color, input) => {
+        localStorage.setItem("--output-color2", color);
+        document.documentElement.style.setProperty("--output-color2", color);
+    },
+});
+var outputColor2 = document.querySelector("#output-color2");
+outputColor2.value = localStorage.getItem("--output-color2");
+outputColor2.dispatchEvent(new Event("input", { bubbles: true }));
+document.documentElement.style.setProperty(
+    "--output-color2",
+    localStorage.getItem("--output-color2")
+);
+
+Coloris.setInstance("#outline-color", {
+    theme: "polaroid",
+    themeMode: "light",
+    alpha: true,
+    format: "rgb",
+    formatToggle: true,
+    closeButton: true,
+    onChange: (color, input) => {
+        localStorage.setItem("--outline-color", color);
+        document.documentElement.style.setProperty("--outline-color", color);
+    },
+});
+var outlineColor = document.querySelector("#outline-color");
+outlineColor.value = localStorage.getItem("--outline-color");
+outlineColor.dispatchEvent(new Event("input", { bubbles: true }));
+document.documentElement.style.setProperty(
+    "--outline-color",
+    localStorage.getItem("--outline-color")
+);
+
+Coloris.setInstance("#screen-color", {
+    theme: "polaroid",
+    themeMode: "light",
+    alpha: true,
+    format: "rgb",
+    formatToggle: true,
+    closeButton: true,
+    onChange: (color, input) => {
+        localStorage.setItem("--screen-color", color);
+        document.documentElement.style.setProperty("--screen-color", color);
+    },
+});
+var screenColor = document.querySelector("#screen-color");
+screenColor.value = localStorage.getItem("--screen-color");
+screenColor.dispatchEvent(new Event("input", { bubbles: true }));
+document.documentElement.style.setProperty(
+    "--screen-color",
+    localStorage.getItem("--screen-color")
+);
 
 //initialize sliders
 var slider1 = document.querySelector("#slider1");
@@ -287,24 +390,25 @@ function outlineHelper(element, text) {
     element.nextElementSibling.textContent = text;
 }
 function startListening() {
+    stopListening = false;
     if (!initialized) {
-        var phrase = phrases[randomPhrase()];
-        // To ensure case consistency while checking with the returned output text
-        phrase = phrase.toLowerCase();
-
-        var grammar =
-            "#JSGF V1.0; grammar phrase; public <phrase> = " + phrase + ";";
-        var speechRecognitionList = new SpeechGrammarList();
-        speechRecognitionList.addFromString("치지직");
-        speechRecognitionList.addFromString("뚜야");
-        speechRecognitionList.addFromString(grammar, 1);
-
         recognition = new SpeechRecognition();
-        //recognition.grammars = speechRecognitionList;
         recognition.lang = inputLanguage;
         recognition.interimResults = true;
         recognition.maxAlternatives = 0;
         recognition.continuous = false;
+        //var phrase = phrases[randomPhrase()];
+        // To ensure case consistency while checking with the returned output text
+        //phrase = phrase.toLowerCase();
+
+        //var grammar =
+        //    "#JSGF V1.0; grammar phrase; public <phrase> = " + phrase + ";";
+        //var speechRecognitionList = new SpeechGrammarList();
+        //speechRecognitionList.addFromString("치지직");
+        //speechRecognitionList.addFromString("뚜야");
+        //speechRecognitionList.addFromString(grammar, 1);
+        //recognition.grammars = speechRecognitionList;
+
         recognition.start();
 
         var spokenWords;
@@ -313,15 +417,17 @@ function startListening() {
         var talkCount = 0;
         var isFinal;
         var translateCycle = 0;
+        var translateThres;
+        var results;
+        var numberOfResults;
     } else {
         recognition.abort();
         return;
     }
     recognition.onresult = function (event) {
-        var translateThres = slider6.value;
         //recognition work
-        var results = event.results;
-        var numberOfResults = results.length;
+        results = event.results;
+        numberOfResults = results.length;
         if (0 !== numberOfResults) {
             spokenWords = interimWords = "";
             var index = event.resultIndex;
@@ -434,7 +540,6 @@ function startListening() {
     };
     recognition.onerror = function (event) {
         startBtn.disabled = false;
-        startBtn.textContent = "에러";
         console.log(event);
         transcription_current_under.textContent = event.message;
         transcription_current_over.textContent = event.message;
@@ -443,13 +548,13 @@ function startListening() {
         //Fired when the speech recognition service has begun listening to incoming audio with intent to recognize grammars associated with the current SpeechRecognition.
         console.log("SpeechRecognition.onstart");
         initialized = true;
-        startBtn.textContent = "정지";
         inputLanguage =
             inputLanguageDropdown.querySelector(".selected").dataset.value;
         outputLanguage =
             outputLanguageDropdown.querySelector(".selected").dataset.value;
         outputLanguage2 =
             outputLanguageDropdown2.querySelector(".selected").dataset.value;
+        translateThres = slider6.value;
     };
     recognition.onend = function () {
         //Fired when the speech recognition service has disconnected.
@@ -457,8 +562,9 @@ function startListening() {
         spokenWords = interimWords = "";
         talkCount = 0;
         initialized = false;
-        startBtn.textContent = "시작";
-        recognition.start();
+        if (!stopListening) {
+            recognition.start();
+        }
     };
     recognition.onspeechend = function () {
         console.log("SpeechRecognition.onspeechend");
@@ -488,13 +594,18 @@ function startListening() {
     //    console.log("SpeechRecognition.onspeechstart");
     //};
 }
-//Main
-function main() {
-    if (isMobile) {
-        startBtn.addEventListener("click", startListening);
-    } else {
-        startBtn.addEventListener("click", startListening);
-    }
+
+function endListening() {
+    recognition.abort();
+    stopListening = true;
 }
+if (isMobile) {
+    startBtn.addEventListener("click", startListening);
+} else {
+    startBtn.addEventListener("click", startListening);
+}
+stopBtn.addEventListener("click", endListening);
+//Main
+function main() {}
 
 main();
